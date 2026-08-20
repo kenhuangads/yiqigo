@@ -165,7 +165,7 @@ function openSettings() {
       const r = await testAIEngine();
       settings.aiEngine = true; saveSettings();
       body.querySelector('#setAI').checked = true;
-      toast(`✓ AI 引擎已啟用：「${r.text.slice(0, 26)}…」`);
+      toast(`✓ AI 引擎已啟用（${r.model}）：「${r.text.slice(0, 24)}…」`);
     } catch (err) {
       toast(`測試失敗：${err.message}`, 'err');
     }

@@ -2,7 +2,7 @@
 //   Gemini AI（選用，需自備金鑰）→ Google（非官方 gtx 端點）→ MyMemory 備援
 // 翻成中文時自動套用「台灣用語守護」（OpenCC s2twp＋台灣詞典）
 import { LANGS, DETECTED_NAMES, AI } from './config.js';
-import { settings } from './store.js';
+import { settings, saveSettings } from './store.js';
 import { taiwanize } from './taiwanize.js';
 
 const memCache = new Map(); // 本次工作階段的記憶體快取
@@ -28,6 +28,66 @@ const TARGET_DESC = {
   'ko': '自然的韓文，依情境使用合適的敬語（-요/-습니다體）',
 };
 
+// 低延遲思考設定依模型世代而異；不被接受時會以裸設定重試
+function geminiGenConfig(model, bare) {
+  const cfg = { temperature: 0.2 };
+  if (!bare) {
+    if (/gemini-2\.5/.test(model)) cfg.thinkingConfig = { thinkingBudget: 0 };
+    else cfg.thinkingConfig = { thinkingLevel: 'low' };
+  }
+  return cfg;
+}
+
+async function geminiCall(model, key, sys, text, bare = false) {
+  const res = await fetchWithTimeout(`${AI.endpoint}${model}:generateContent`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'x-goog-api-key': key },
+    body: JSON.stringify({
+      system_instruction: { parts: [{ text: sys }] },
+      contents: [{ role: 'user', parts: [{ text }] }],
+      generationConfig: geminiGenConfig(model, bare),
+    }),
+  }, 20000);
+  if (!res.ok) {
+    let detail = `HTTP ${res.status}`;
+    try { detail = (await res.json())?.error?.message?.slice(0, 160) || detail; } catch {}
+    const err = new Error(detail);
+    err.status = res.status;
+    throw err;
+  }
+  const data = await res.json();
+  const out = (data.candidates?.[0]?.content?.parts || []).map(p => p.text || '').join('').trim();
+  if (!out) throw new Error('AI 回應為空');
+  return { text: out, model };
+}
+
+function isModelGone(err) {
+  return err?.status === 404 || /no longer available|not found|not supported/i.test(err?.message || '');
+}
+
+// 模型被汰換時，向 ListModels 探索目前金鑰可用的最新 flash 模型
+async function discoverModel(key) {
+  const res = await fetchWithTimeout(`${AI.endpoint.replace(/\/$/, '')}?pageSize=200`, {
+    headers: { 'x-goog-api-key': key },
+  }, 15000);
+  if (!res.ok) throw new Error(`無法取得模型清單（HTTP ${res.status}）`);
+  const data = await res.json();
+  const scored = (data.models || [])
+    .filter(m => (m.supportedGenerationMethods || []).includes('generateContent'))
+    .map(m => (m.name || '').replace(/^models\//, ''))
+    .filter(n => /^gemini-[\d.]+-flash/.test(n))
+    .map(n => {
+      let score = parseFloat(n.match(/^gemini-([\d.]+)-flash/)[1]);
+      if (n.includes('lite')) score -= 0.4;                 // 優先完整版 flash
+      if (/preview|exp/.test(n)) score -= 0.05;             // 優先正式版
+      if (!/^gemini-[\d.]+-flash$/.test(n)) score -= 0.02;  // 優先無後綴的乾淨名稱
+      return { name: n, score };
+    })
+    .sort((a, b) => b.score - a.score);
+  if (!scored.length) throw new Error('這組金鑰找不到可用的 Gemini flash 模型');
+  return scored[0].name;
+}
+
 async function geminiTranslate(text, from, to) {
   const key = (settings.geminiKey || '').trim();
   if (!key) throw new Error('尚未設定 API 金鑰');
@@ -41,24 +101,29 @@ async function geminiTranslate(text, from, to) {
 5. 原文若缺少標點，先在心中合理斷句再翻譯。
 6. 人名、地名、品牌採台灣慣用譯名，沒有慣用譯名就保留原文。`;
 
-  const res = await fetchWithTimeout(`${AI.endpoint}${AI.model}:generateContent`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json', 'x-goog-api-key': key },
-    body: JSON.stringify({
-      system_instruction: { parts: [{ text: sys }] },
-      contents: [{ role: 'user', parts: [{ text }] }],
-      generationConfig: { temperature: 0.2, thinkingConfig: { thinkingBudget: 0 } },
-    }),
-  }, 20000);
-  if (!res.ok) {
-    let detail = `HTTP ${res.status}`;
-    try { detail = (await res.json())?.error?.message?.slice(0, 140) || detail; } catch {}
-    throw new Error(detail);
+  const attempt = async (model) => {
+    try {
+      return await geminiCall(model, key, sys, text);
+    } catch (err) {
+      // 思考設定不被此模型接受時，改用裸設定重試一次
+      if (err.status === 400 && !isModelGone(err)) return geminiCall(model, key, sys, text, true);
+      throw err;
+    }
+  };
+
+  let model = (settings.aiModel || '').trim() || AI.model;
+  let r;
+  try {
+    r = await attempt(model);
+  } catch (err) {
+    if (!isModelGone(err)) throw err;
+    // 模型已被 Google 汰換 → 自動探索可用模型並記住
+    model = await discoverModel(key);
+    settings.aiModel = model;
+    saveSettings();
+    r = await attempt(model);
   }
-  const data = await res.json();
-  const out = (data.candidates?.[0]?.content?.parts || []).map(p => p.text || '').join('').trim();
-  if (!out) throw new Error('AI 回應為空');
-  return { text: out, detected: from === 'auto' ? '' : from, provider: 'Gemini AI' };
+  return { text: r.text, detected: from === 'auto' ? '' : from, provider: 'Gemini AI', model: r.model };
 }
 
 // 設定頁的「測試」按鈕用：直接打 AI 引擎驗證金鑰

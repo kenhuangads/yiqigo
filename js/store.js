@@ -23,6 +23,7 @@ export const settings = load(K.settings, {
   camLive: true,       // 相機即時翻譯模式
   aiEngine: false,     // Gemini AI 翻譯引擎
   geminiKey: '',       // 使用者自備的 API 金鑰（只存在裝置上）
+  aiModel: '',         // 自動探索到的可用模型（空值＝用預設）
 });
 export function saveSettings() { save(K.settings, settings); }
 

@@ -1,5 +1,5 @@
 // 語言設定：預設四語（繁中／英／日／韓），未來擴充只需在此新增
-export const APP_VERSION = '1.2.0';
+export const APP_VERSION = '1.2.1';
 
 export const LANGS = {
   'zh-TW': {
@@ -47,8 +47,9 @@ export const CDN = {
 };
 
 // 選用的 AI 翻譯引擎（使用者自備免費金鑰，金鑰只存在裝置上）
+// model 只是預設值：模型被 Google 汰換時會自動透過 ListModels 探索可用的最新 flash 模型
 export const AI = {
-  model: 'gemini-2.5-flash',
+  model: 'gemini-3.6-flash',
   endpoint: 'https://generativelanguage.googleapis.com/v1beta/models/',
   keyUrl: 'https://aistudio.google.com/apikey',
 };
