@@ -1,0 +1,97 @@
+// 旅遊常用句庫：完全離線可用，涵蓋台灣旅客最高頻情境
+// 每句含繁中／英／日／韓四語（人工校對，非機器翻譯）
+export const PHRASE_CATEGORIES = [
+  {
+    id: 'basic', name: '基本', emoji: '👋',
+    items: [
+      { zh: '你好', en: 'Hello', ja: 'こんにちは', ko: '안녕하세요' },
+      { zh: '謝謝', en: 'Thank you', ja: 'ありがとうございます', ko: '감사합니다' },
+      { zh: '不好意思，請問一下', en: 'Excuse me, may I ask you something?', ja: 'すみません、ちょっとお聞きしたいのですが', ko: '실례합니다, 뭐 좀 여쭤볼게요' },
+      { zh: '我聽不懂', en: "I don't understand", ja: 'わかりません', ko: '잘 못 알아들었어요' },
+      { zh: '請說慢一點', en: 'Could you speak more slowly, please?', ja: 'もう少しゆっくり話してください', ko: '천천히 말씀해 주세요' },
+      { zh: '可以幫我嗎？', en: 'Could you help me?', ja: '手伝ってもらえますか？', ko: '좀 도와주시겠어요?' },
+      { zh: '我來自台灣', en: "I'm from Taiwan", ja: '台湾から来ました', ko: '대만에서 왔습니다' },
+      { zh: '沒問題', en: 'No problem', ja: '大丈夫です', ko: '괜찮아요' },
+      { zh: '再見', en: 'Goodbye', ja: 'さようなら', ko: '안녕히 계세요' },
+    ],
+  },
+  {
+    id: 'transport', name: '交通', emoji: '🚉',
+    items: [
+      { zh: '請問車站怎麼走？', en: 'How do I get to the station?', ja: '駅はどう行けばいいですか？', ko: '역은 어떻게 가나요?' },
+      { zh: '到機場多少錢？', en: 'How much is it to the airport?', ja: '空港までいくらですか？', ko: '공항까지 얼마예요?' },
+      { zh: '請帶我去這個地址', en: 'Please take me to this address', ja: 'この住所までお願いします', ko: '이 주소로 가 주세요' },
+      { zh: '這班車有到○○嗎？', en: 'Does this train/bus go to ○○?', ja: 'これは○○に行きますか？', ko: '이 차는 ○○에 가나요?' },
+      { zh: '末班車是幾點？', en: 'What time is the last train?', ja: '終電は何時ですか？', ko: '막차는 몇 시예요?' },
+      { zh: '我要在哪裡轉車？', en: 'Where should I transfer?', ja: 'どこで乗り換えればいいですか？', ko: '어디서 갈아타야 하나요?' },
+      { zh: '請問售票處在哪裡？', en: 'Where can I buy a ticket?', ja: '切符売り場はどこですか？', ko: '매표소가 어디예요?' },
+      { zh: '請在這裡停車', en: 'Please stop here', ja: 'ここで停めてください', ko: '여기서 세워 주세요' },
+    ],
+  },
+  {
+    id: 'food', name: '點餐', emoji: '🍜',
+    items: [
+      { zh: '請給我菜單', en: 'Could I have the menu, please?', ja: 'メニューをください', ko: '메뉴판 좀 주세요' },
+      { zh: '有推薦的嗎？', en: 'What do you recommend?', ja: 'おすすめは何ですか？', ko: '추천 메뉴가 있나요?' },
+      { zh: '我要點這個', en: "I'll have this one", ja: 'これをください', ko: '이거 주세요' },
+      { zh: '不要太辣', en: 'Not too spicy, please', ja: '辛さ控えめでお願いします', ko: '너무 맵지 않게 해 주세요' },
+      { zh: '我對花生過敏', en: "I'm allergic to peanuts", ja: 'ピーナッツアレルギーがあります', ko: '땅콩 알레르기가 있어요' },
+      { zh: '我吃素', en: "I'm vegetarian", ja: 'ベジタリアンです', ko: '저는 채식주의자예요' },
+      { zh: '請幫我打包', en: 'Could I get this to go?', ja: '持ち帰りにしてもらえますか？', ko: '포장해 주세요' },
+      { zh: '買單，謝謝', en: 'Check, please', ja: 'お会計お願いします', ko: '계산해 주세요' },
+      { zh: '好吃！', en: "It's delicious!", ja: 'おいしいです！', ko: '맛있어요!' },
+    ],
+  },
+  {
+    id: 'shopping', name: '購物', emoji: '🛍️',
+    items: [
+      { zh: '多少錢？', en: 'How much is it?', ja: 'いくらですか？', ko: '얼마예요?' },
+      { zh: '可以刷卡嗎？', en: 'Can I pay by card?', ja: 'カードで払えますか？', ko: '카드로 결제할 수 있나요?' },
+      { zh: '可以退稅嗎？', en: 'Can I get a tax refund?', ja: '免税できますか？', ko: '택스 리펀 받을 수 있나요?' },
+      { zh: '有其他顏色嗎？', en: 'Do you have this in other colors?', ja: '他の色はありますか？', ko: '다른 색상 있나요?' },
+      { zh: '可以試穿嗎？', en: 'Can I try it on?', ja: '試着してもいいですか？', ko: '입어 봐도 되나요?' },
+      { zh: '請幫我包裝', en: 'Could you wrap it up, please?', ja: 'ラッピングをお願いできますか？', ko: '포장해 주시겠어요?' },
+      { zh: '太貴了，可以便宜一點嗎？', en: "That's a bit expensive. Any discount?", ja: 'ちょっと高いですね。安くなりますか？', ko: '너무 비싸요. 좀 깎아 주세요' },
+      { zh: '我只是看看', en: "I'm just looking, thanks", ja: '見ているだけです', ko: '그냥 구경하는 거예요' },
+    ],
+  },
+  {
+    id: 'hotel', name: '住宿', emoji: '🏨',
+    items: [
+      { zh: '我有預訂，名字是○○', en: 'I have a reservation under ○○', ja: '予約しています。名前は○○です', ko: '○○ 이름으로 예약했어요' },
+      { zh: '幾點退房？', en: 'What time is check-out?', ja: 'チェックアウトは何時ですか？', ko: '체크아웃은 몇 시예요?' },
+      { zh: '可以寄放行李嗎？', en: 'Could you keep my luggage?', ja: '荷物を預かってもらえますか？', ko: '짐을 맡길 수 있나요?' },
+      { zh: 'WiFi 密碼是什麼？', en: "What's the WiFi password?", ja: 'WiFiのパスワードは何ですか？', ko: '와이파이 비밀번호가 뭐예요?' },
+      { zh: '房間沒有熱水', en: "There's no hot water in my room", ja: '部屋のお湯が出ません', ko: '방에 뜨거운 물이 안 나와요' },
+      { zh: '可以換房間嗎？', en: 'Could I change rooms?', ja: '部屋を替えてもらえますか？', ko: '방을 바꿀 수 있을까요?' },
+      { zh: '可以多給一條毛巾嗎？', en: 'Could I have an extra towel?', ja: 'タオルをもう一枚もらえますか？', ko: '수건 하나만 더 주시겠어요?' },
+      { zh: '附近有便利商店嗎？', en: 'Is there a convenience store nearby?', ja: '近くにコンビニはありますか？', ko: '근처에 편의점이 있나요?' },
+    ],
+  },
+  {
+    id: 'emergency', name: '緊急', emoji: '🆘',
+    items: [
+      { zh: '救命！', en: 'Help!', ja: '助けて！', ko: '도와주세요!' },
+      { zh: '請幫我叫救護車', en: 'Please call an ambulance', ja: '救急車を呼んでください', ko: '구급차를 불러 주세요' },
+      { zh: '我不舒服', en: "I don't feel well", ja: '気分が悪いです', ko: '몸이 안 좋아요' },
+      { zh: '最近的醫院在哪裡？', en: 'Where is the nearest hospital?', ja: '一番近い病院はどこですか？', ko: '가장 가까운 병원이 어디예요?' },
+      { zh: '最近的藥局在哪裡？', en: 'Where is the nearest pharmacy?', ja: '一番近い薬局はどこですか？', ko: '가장 가까운 약국이 어디예요?' },
+      { zh: '我的護照不見了', en: 'I lost my passport', ja: 'パスポートをなくしました', ko: '여권을 잃어버렸어요' },
+      { zh: '請幫我報警', en: 'Please call the police', ja: '警察を呼んでください', ko: '경찰을 불러 주세요' },
+      { zh: '我需要會說中文的人', en: 'I need someone who speaks Chinese', ja: '中国語が話せる人をお願いします', ko: '중국어 할 수 있는 분이 필요해요' },
+    ],
+  },
+  {
+    id: 'handy', name: '實用', emoji: '⭐',
+    items: [
+      { zh: '請問廁所在哪裡？', en: 'Where is the restroom?', ja: 'トイレはどこですか？', ko: '화장실이 어디예요?' },
+      { zh: '可以幫我們拍照嗎？', en: 'Could you take a photo for us?', ja: '写真を撮ってもらえますか？', ko: '사진 좀 찍어 주시겠어요?' },
+      { zh: '這裡可以充電嗎？', en: 'Can I charge my phone here?', ja: 'ここで充電できますか？', ko: '여기서 충전할 수 있나요?' },
+      { zh: '有會說英文的人嗎？', en: 'Is there anyone who speaks English?', ja: '英語が話せる人はいますか？', ko: '영어 하시는 분 있나요?' },
+      { zh: '請寫下來給我看', en: 'Could you write it down for me?', ja: '書いてもらえますか？', ko: '적어 주시겠어요?' },
+      { zh: '現在幾點？', en: 'What time is it now?', ja: '今何時ですか？', ko: '지금 몇 시예요?' },
+      { zh: '這裡可以拍照嗎？', en: 'Is it okay to take photos here?', ja: 'ここで写真を撮ってもいいですか？', ko: '여기서 사진 찍어도 되나요?' },
+      { zh: '祝你有美好的一天', en: 'Have a nice day!', ja: '良い一日を！', ko: '좋은 하루 보내세요!' },
+    ],
+  },
+];
