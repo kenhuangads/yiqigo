@@ -229,6 +229,21 @@ select { padding: 8px 10px; min-height: 40px; }
 /* ---------- 相機 ---------- */
 .cam-stage { position: absolute; inset: 0; background: #000; overflow: hidden; }
 .cam-stage video { width: 100%; height: 100%; object-fit: cover; }
+.cam-overlay { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+.cam-live {
+  display: inline-flex; align-items: center;
+  padding: 7px 12px; border-radius: 999px;
+  background: rgba(255,255,255,.16); border: 1px solid rgba(255,255,255,.35);
+  color: #fff; font-size: .85rem; font-weight: 600; white-space: nowrap;
+  backdrop-filter: blur(6px);
+}
+.cam-live.on { background: var(--brand); border-color: var(--brand); }
+.cam-status {
+  position: absolute; top: 64px; left: 50%; transform: translateX(-50%);
+  background: rgba(13,22,33,.72); color: #fff;
+  font-size: .8rem; padding: 5px 14px; border-radius: 999px; white-space: nowrap;
+  backdrop-filter: blur(4px);
+}
 .cam-top {
   position: absolute; top: 0; left: 0; right: 0;
   display: flex; align-items: center; justify-content: space-between;
@@ -405,10 +420,18 @@ select { padding: 8px 10px; min-height: 40px; }
 .sheet-grab { width: 40px; height: 4px; border-radius: 99px; background: var(--line); margin: 4px auto 12px; }
 .sheet h3 { font-size: 1.1rem; margin-bottom: 12px; display: flex; align-items: center; justify-content: space-between; }
 .sheet h3 .iconbtn { width: 34px; height: 34px; }
+.set-sec {
+  margin-top: 18px; padding-bottom: 4px;
+  font-weight: 700; font-size: .95rem; color: var(--brand-deep);
+}
+@media (prefers-color-scheme: dark) { .set-sec { color: var(--brand); } }
 .set-row {
   display: flex; align-items: center; gap: 12px;
   padding: 12px 2px; border-bottom: 1px solid var(--line);
 }
+.set-row.set-col { flex-direction: column; align-items: stretch; gap: 8px; }
+.set-keyrow { display: flex; gap: 8px; }
+.set-keyrow input { flex: 1; padding: 9px 12px; min-width: 0; }
 .set-row:last-child { border-bottom: 0; }
 .set-row .set-txt { flex: 1; }
 .set-row .set-txt small { display: block; color: var(--muted); font-size: .78rem; }

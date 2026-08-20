@@ -14,12 +14,12 @@ export function sourceById(id) {
 }
 
 // 各種輸入（video、img、blob）統一轉為 canvas 並限制最大邊長
-export async function toCanvas(source) {
+export async function toCanvas(source, maxDim = MAX_DIM) {
   let bmp = source;
   if (source instanceof Blob) bmp = await createImageBitmap(source);
   const sw = bmp.videoWidth || bmp.naturalWidth || bmp.width;
   const sh = bmp.videoHeight || bmp.naturalHeight || bmp.height;
-  const scale = Math.min(1, MAX_DIM / Math.max(sw, sh));
+  const scale = Math.min(1, maxDim / Math.max(sw, sh));
   const canvas = document.createElement('canvas');
   canvas.width = Math.round(sw * scale);
   canvas.height = Math.round(sh * scale);
@@ -41,6 +41,13 @@ function isNoise(text) {
   try { return /^[^\p{L}\p{N}]+$/u.test(text); } catch { return false; }
 }
 
+// 清洗 OCR 線段：去雜訊、去 CJK 間空白、過濾低信心結果（快門與即時模式共用）
+export function filterLines(rawLines) {
+  return rawLines
+    .map(l => ({ ...l, text: cleanLine(l.text) }))
+    .filter(l => !isNoise(l.text) && l.confidence >= 40);
+}
+
 // 主管線
 export async function processImage(canvas, sourceId, onProgress) {
   const src = sourceById(sourceId);
@@ -52,9 +59,7 @@ export async function processImage(canvas, sourceId, onProgress) {
     else onProgress?.('辨識文字中…', 0.35 + ratio * 0.4);
   });
 
-  const lines = rawLines
-    .map(l => ({ ...l, text: cleanLine(l.text) }))
-    .filter(l => !isNoise(l.text) && l.confidence >= 40);
+  const lines = filterLines(rawLines);
 
   if (!lines.length) {
     return { canvas, pairs: [], fullSrc: '', fullDst: '', src, empty: true };
@@ -87,39 +92,45 @@ export async function processImage(canvas, sourceId, onProgress) {
   };
 }
 
+// 譯文圖塊繪製（快門覆蓋圖與即時模式共用）
+// chips: [{ x, y, w, h, text }]，座標以目前 ctx 的座標系為準
+export function drawTranslationChips(ctx, chips, boundW) {
+  ctx.textBaseline = 'middle';
+  const setFont = (size) => {
+    ctx.font = `600 ${size}px "Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif`;
+  };
+  for (const c of chips) {
+    if (!c.text || c.w < 8 || c.h < 8) continue;
+    let fontSize = Math.min(Math.max(c.h * 0.72, 11), 64);
+    setFont(fontSize);
+    let tw = ctx.measureText(c.text).width;
+    const maxW = Math.max(c.w * 1.15, 60);
+    while (tw > maxW && fontSize > 10) {
+      fontSize -= 1;
+      setFont(fontSize);
+      tw = ctx.measureText(c.text).width;
+    }
+    const padX = fontSize * 0.35, boxH = Math.max(c.h, fontSize * 1.3);
+    const boxW = Math.min(tw + padX * 2, boundW - c.x);
+    const ry = c.y + (c.h - boxH) / 2;
+    ctx.fillStyle = 'rgba(13, 22, 33, 0.78)';
+    roundRect(ctx, c.x, ry, boxW, boxH, Math.min(8, boxH / 3));
+    ctx.fill();
+    ctx.fillStyle = '#fff';
+    ctx.fillText(c.text, c.x + padX, ry + boxH / 2 + fontSize * 0.04, boxW - padX * 2);
+  }
+}
+
 // 在原圖上覆蓋譯文（半透明底＋自動縮放字級）
 function drawOverlay(canvas, pairs) {
   const out = document.createElement('canvas');
   out.width = canvas.width; out.height = canvas.height;
   const ctx = out.getContext('2d');
   ctx.drawImage(canvas, 0, 0);
-  ctx.textBaseline = 'middle';
-
-  for (const p of pairs) {
-    if (!p.bbox || !p.dst) continue;
-    const { x0, y0, x1, y1 } = p.bbox;
-    const w = x1 - x0, h = y1 - y0;
-    if (w < 8 || h < 8) continue;
-
-    let fontSize = Math.min(Math.max(h * 0.72, 11), 64);
-    ctx.font = `600 ${fontSize}px "Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif`;
-    let tw = ctx.measureText(p.dst).width;
-    const maxW = Math.max(w * 1.15, 60);
-    while (tw > maxW && fontSize > 10) {
-      fontSize -= 1;
-      ctx.font = `600 ${fontSize}px "Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif`;
-      tw = ctx.measureText(p.dst).width;
-    }
-
-    const padX = fontSize * 0.35, boxH = Math.max(h, fontSize * 1.3);
-    const boxW = Math.min(tw + padX * 2, out.width - x0);
-    const ry = y0 + (h - boxH) / 2;
-    ctx.fillStyle = 'rgba(13, 22, 33, 0.78)';
-    roundRect(ctx, x0, ry, boxW, boxH, Math.min(8, boxH / 3));
-    ctx.fill();
-    ctx.fillStyle = '#fff';
-    ctx.fillText(p.dst, x0 + padX, ry + boxH / 2 + fontSize * 0.04, boxW - padX * 2);
-  }
+  const chips = pairs
+    .filter(p => p.bbox && p.dst)
+    .map(p => ({ x: p.bbox.x0, y: p.bbox.y0, w: p.bbox.x1 - p.bbox.x0, h: p.bbox.y1 - p.bbox.y0, text: p.dst }));
+  drawTranslationChips(ctx, chips, out.width);
   return out;
 }
 function roundRect(ctx, x, y, w, h, r) {

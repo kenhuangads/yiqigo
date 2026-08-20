@@ -1,5 +1,5 @@
 // Service Worker：離線殼層＋CDN 模型快取＋翻譯結果快取
-const VERSION = 'yiqigo-v1.0.1';
+const VERSION = 'yiqigo-v1.1.0';
 const SHELL_CACHE = `${VERSION}-shell`;
 const CDN_CACHE = `${VERSION}-cdn`;
 const API_CACHE = `${VERSION}-api`;

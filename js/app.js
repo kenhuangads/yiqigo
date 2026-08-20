@@ -1,7 +1,8 @@
 // 一起GO 翻譯神器 — 主程式
-import { LANGS, FOREIGN_LANGS, APP_VERSION } from './config.js';
+import { LANGS, FOREIGN_LANGS, APP_VERSION, AI } from './config.js';
 import { settings, saveSettings, getForeign, setForeign, clearTextHistory } from './store.js';
 import { $, $$, el, toast, openSheet } from './ui.js';
+import { testAIEngine } from './translator.js';
 import { speak, sttSupported, ttsSupported } from './speech.js';
 import { initTalk } from './conversation.js';
 import { initCamera, onShowCamera, onHideCamera } from './camera.js';
@@ -76,6 +77,18 @@ function openSettings() {
         <div class="set-txt">台灣用語守護<small>自動把「充電寶、視頻、軟件」等用語轉為台灣慣用詞，並修正簡繁轉換</small></div>
         <label class="switch"><input type="checkbox" id="setTaiwanGuard"><span class="knob"></span></label>
       </div>
+      <div class="set-sec">🤖 AI 翻譯引擎（選用・品質大幅提升）</div>
+      <div class="set-row">
+        <div class="set-txt">啟用 Gemini AI 翻譯<small>對話、輸入、照片、快門翻譯改走 AI 引擎，語句更通順道地；即時相機仍用快速引擎。AI 失敗時自動退回一般引擎</small></div>
+        <label class="switch"><input type="checkbox" id="setAI"><span class="knob"></span></label>
+      </div>
+      <div class="set-row set-col">
+        <div class="set-txt">Gemini API 金鑰<small>免費申請：<a href="${AI.keyUrl}" target="_blank" rel="noopener">aistudio.google.com/apikey</a>（登入 Google 帳號 → Create API key）。金鑰只儲存在你的裝置，僅用於直接呼叫 Google API</small></div>
+        <div class="set-keyrow">
+          <input type="password" id="setAIKey" placeholder="貼上 AIza 開頭的金鑰" autocomplete="off">
+          <button class="btn ghost" id="setAITest">測試</button>
+        </div>
+      </div>
       <div class="set-row" id="setInstallRow" hidden>
         <div class="set-txt">安裝到主畫面<small>像 App 一樣使用，支援離線句庫</small></div>
         <button class="btn primary" id="setInstall" style="min-height:38px">安裝</button>
@@ -112,6 +125,32 @@ function openSettings() {
     $('#btnAutoSpeak')?.classList.toggle('on', on));
   bindSwitch('#setAutoTranslate', 'autoTranslate');
   bindSwitch('#setTaiwanGuard', 'taiwanGuard');
+  bindSwitch('#setAI', 'aiEngine', (on) => {
+    if (on && !settings.geminiKey) toast('請貼上 Gemini API 金鑰後才會生效');
+  });
+
+  const keyInput = body.querySelector('#setAIKey');
+  keyInput.value = settings.geminiKey || '';
+  keyInput.addEventListener('change', () => {
+    settings.geminiKey = keyInput.value.trim();
+    saveSettings();
+  });
+  body.querySelector('#setAITest').addEventListener('click', async (e) => {
+    settings.geminiKey = keyInput.value.trim();
+    saveSettings();
+    if (!settings.geminiKey) { toast('請先貼上金鑰', 'err'); return; }
+    const btn = e.currentTarget;
+    btn.disabled = true; btn.textContent = '測試中…';
+    try {
+      const r = await testAIEngine();
+      settings.aiEngine = true; saveSettings();
+      body.querySelector('#setAI').checked = true;
+      toast(`✓ AI 引擎已啟用：「${r.text.slice(0, 26)}…」`);
+    } catch (err) {
+      toast(`測試失敗：${err.message}`, 'err');
+    }
+    btn.disabled = false; btn.textContent = '測試';
+  });
 
   if (deferredInstallPrompt) {
     body.querySelector('#setInstallRow').hidden = false;

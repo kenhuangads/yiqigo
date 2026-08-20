@@ -1,11 +1,14 @@
-// 翻譯引擎：Google（非官方 gtx 端點）為主、MyMemory 備援
+// 翻譯引擎（動態路由）：
+//   Gemini AI（選用，需自備金鑰）→ Google（非官方 gtx 端點）→ MyMemory 備援
 // 翻成中文時自動套用「台灣用語守護」（OpenCC s2twp＋台灣詞典）
-import { LANGS, DETECTED_NAMES } from './config.js';
+import { LANGS, DETECTED_NAMES, AI } from './config.js';
 import { settings } from './store.js';
 import { taiwanize } from './taiwanize.js';
 
 const memCache = new Map(); // 本次工作階段的記憶體快取
 let googleHealthy = true;
+let aiFailCount = 0;
+let aiCooldownUntil = 0; // AI 引擎連續失敗後的暫停期限
 
 function cacheKey(text, from, to) { return `${from}|${to}|${text}`; }
 
@@ -15,6 +18,52 @@ async function fetchWithTimeout(url, options = {}, ms = 12000) {
   try {
     return await fetch(url, { ...options, signal: options.signal ?? ctrl.signal });
   } finally { clearTimeout(timer); }
+}
+
+// ---------- Gemini AI（LLM 翻譯，通順度最佳；使用者自備免費金鑰） ----------
+const TARGET_DESC = {
+  'zh-TW': '台灣正體中文。務必使用台灣慣用語（例如：行動電源、計程車、影片、軟體），絕不可出現中國大陸用語',
+  'en': '自然流暢的英文',
+  'ja': '自然的日文，依情境使用合適的丁寧語',
+  'ko': '自然的韓文，依情境使用合適的敬語（-요/-습니다體）',
+};
+
+async function geminiTranslate(text, from, to) {
+  const key = (settings.geminiKey || '').trim();
+  if (!key) throw new Error('尚未設定 API 金鑰');
+  const srcLine = from === 'auto' ? '自動偵測原文語言。' : `原文語言：${LANGS[from]?.name ?? from}。`;
+  const sys = `你是頂尖的專業翻譯，服務對象是台灣使用者。${srcLine}將輸入文字翻譯成：${TARGET_DESC[to] ?? to}。
+規則：
+1. 只輸出譯文本身，不加任何解釋、前綴、引號或標註。
+2. 譯文要自然、道地、口語，像母語者會說的話；意譯優先於逐字直譯。
+3. 完整保留原文的語氣（請求、疑問、急迫、禮貌）與所有資訊。
+4. 輸入若有多行，輸出行數必須與輸入完全相同，逐行對應翻譯。
+5. 原文若缺少標點，先在心中合理斷句再翻譯。
+6. 人名、地名、品牌採台灣慣用譯名，沒有慣用譯名就保留原文。`;
+
+  const res = await fetchWithTimeout(`${AI.endpoint}${AI.model}:generateContent`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'x-goog-api-key': key },
+    body: JSON.stringify({
+      system_instruction: { parts: [{ text: sys }] },
+      contents: [{ role: 'user', parts: [{ text }] }],
+      generationConfig: { temperature: 0.2, thinkingConfig: { thinkingBudget: 0 } },
+    }),
+  }, 20000);
+  if (!res.ok) {
+    let detail = `HTTP ${res.status}`;
+    try { detail = (await res.json())?.error?.message?.slice(0, 140) || detail; } catch {}
+    throw new Error(detail);
+  }
+  const data = await res.json();
+  const out = (data.candidates?.[0]?.content?.parts || []).map(p => p.text || '').join('').trim();
+  if (!out) throw new Error('AI 回應為空');
+  return { text: out, detected: from === 'auto' ? '' : from, provider: 'Gemini AI' };
+}
+
+// 設定頁的「測試」按鈕用：直接打 AI 引擎驗證金鑰
+export async function testAIEngine() {
+  return geminiTranslate('不好意思，我對花生過敏，這道菜可以不要加花生嗎？', 'zh-TW', 'ja');
 }
 
 // ---------- Google（非官方免費端點） ----------
@@ -75,28 +124,36 @@ async function mymemoryTranslate(text, from, to) {
 }
 
 // ---------- 對外主函式 ----------
-export async function translateText(rawText, from, to, { skipGuard = false } = {}) {
+// opts.fast：即時相機等高頻場景，跳過 AI 引擎（速度與額度優先）
+export async function translateText(rawText, from, to, { skipGuard = false, fast = false } = {}) {
   const text = rawText.trim();
   if (!text) return { text: '', detected: from, provider: '' };
   if (from === to) return { text, detected: from, provider: '原文' };
 
-  const key = cacheKey(text, from, to);
+  const aiReady = settings.aiEngine && settings.geminiKey && !fast && Date.now() >= aiCooldownUntil;
+  const key = `${aiReady ? 'ai' : 'std'}|${cacheKey(text, from, to)}`;
   if (memCache.has(key)) return memCache.get(key);
 
   let result;
   let lastErr;
-  const providers = googleHealthy
+  const base = googleHealthy
     ? [googleTranslate, mymemoryTranslate]
     : [mymemoryTranslate, googleTranslate];
+  const providers = aiReady ? [geminiTranslate, ...base] : base;
 
   for (const fn of providers) {
     try {
       result = await fn(text, from, to);
       if (fn === googleTranslate) googleHealthy = true;
+      if (fn === geminiTranslate) aiFailCount = 0;
       break;
     } catch (err) {
       lastErr = err;
       if (fn === googleTranslate) googleHealthy = false;
+      if (fn === geminiTranslate) {
+        aiFailCount += 1;
+        if (aiFailCount >= 3) { aiCooldownUntil = Date.now() + 120000; aiFailCount = 0; } // 連續失敗休息 2 分鐘
+      }
     }
   }
   if (!result) {

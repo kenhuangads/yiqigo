@@ -16,10 +16,13 @@ function save(key, value) {
 }
 
 export const settings = load(K.settings, {
-  rate: 1,            // 語音速度
-  autoSpeak: true,    // 對話自動朗讀
-  taiwanGuard: true,  // 台灣用語守護
-  autoTranslate: true // 輸入停頓自動翻譯
+  rate: 1,             // 語音速度
+  autoSpeak: true,     // 對話自動朗讀
+  taiwanGuard: true,   // 台灣用語守護
+  autoTranslate: true, // 輸入停頓自動翻譯
+  camLive: true,       // 相機即時翻譯模式
+  aiEngine: false,     // Gemini AI 翻譯引擎
+  geminiKey: '',       // 使用者自備的 API 金鑰（只存在裝置上）
 });
 export function saveSettings() { save(K.settings, settings); }
 

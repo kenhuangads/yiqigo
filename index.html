@@ -112,14 +112,17 @@
     <section id="tab-camera" class="tab" aria-label="相機翻譯">
       <div class="cam-stage" id="camStage">
         <video id="camVideo" playsinline autoplay muted></video>
+        <canvas id="camOverlay" class="cam-overlay" aria-hidden="true"></canvas>
         <div class="cam-top">
           <label class="cam-srcwrap">原文
             <select id="camSource" aria-label="原文語言"></select>
           </label>
+          <button id="btnLiveMode" class="cam-live" title="即時翻譯：免按快門自動翻譯"><span>即時：開</span></button>
           <button id="btnTorch" class="cam-tool" hidden title="手電筒"><svg class="i"><use href="#i-bolt"/></svg></button>
         </div>
+        <div class="cam-status" id="camLiveStatus" hidden></div>
         <div class="cam-bottom">
-          <div class="cam-tip">對準菜單・招牌・標示，按快門即翻成繁體中文</div>
+          <div class="cam-tip" id="camTip">對準文字保持穩定，自動翻成繁體中文；按快門可拍照細看</div>
           <button id="btnShutter" aria-label="拍照翻譯"><span></span></button>
         </div>
         <button class="cam-playhint" id="camPlayHint" hidden>

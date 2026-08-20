@@ -1,5 +1,5 @@
 // 語言設定：預設四語（繁中／英／日／韓），未來擴充只需在此新增
-export const APP_VERSION = '1.0.1';
+export const APP_VERSION = '1.1.0';
 
 export const LANGS = {
   'zh-TW': {
@@ -44,4 +44,11 @@ export const DETECTED_NAMES = {
 export const CDN = {
   tesseract: 'https://cdn.jsdelivr.net/npm/tesseract.js@5.1.1/dist/tesseract.min.js',
   opencc: 'https://cdn.jsdelivr.net/npm/opencc-js@1.0.5/dist/umd/full.js',
+};
+
+// 選用的 AI 翻譯引擎（使用者自備免費金鑰，金鑰只存在裝置上）
+export const AI = {
+  model: 'gemini-2.5-flash',
+  endpoint: 'https://generativelanguage.googleapis.com/v1beta/models/',
+  keyUrl: 'https://aistudio.google.com/apikey',
 };
