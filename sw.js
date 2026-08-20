@@ -1,5 +1,5 @@
 // Service Worker：離線殼層＋CDN 模型快取＋翻譯結果快取
-const VERSION = 'yiqigo-v1.0.0';
+const VERSION = 'yiqigo-v1.0.1';
 const SHELL_CACHE = `${VERSION}-shell`;
 const CDN_CACHE = `${VERSION}-cdn`;
 const API_CACHE = `${VERSION}-api`;
@@ -54,7 +54,9 @@ self.addEventListener('fetch', (e) => {
   const url = new URL(request.url);
 
   if (url.origin === location.origin) {
-    e.respondWith(staleWhileRevalidate(request, SHELL_CACHE));
+    // 頁面導覽走網路優先，確保修正版能在下次開啟時立即生效；其餘資源快取優先
+    if (request.mode === 'navigate') e.respondWith(networkFirst(request, SHELL_CACHE));
+    else e.respondWith(staleWhileRevalidate(request, SHELL_CACHE));
   } else if (CDN_HOSTS.includes(url.hostname)) {
     e.respondWith(cacheFirst(request, CDN_CACHE));
   } else if (API_HOSTS.includes(url.hostname)) {

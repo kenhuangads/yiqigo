@@ -5,6 +5,7 @@ import { $, toast, progressVeil } from './ui.js';
 import { toCanvas, processImage, renderVisionResult } from './vision.js';
 
 let stream = null;
+let starting = false;
 let torchOn = false;
 let manualSource = false;
 let busy = false;
@@ -16,6 +17,7 @@ export function initCamera() {
     msg: $('#camMsg'), msgText: $('#camMsgText'),
     select: $('#camSource'), torch: $('#btnTorch'),
     shutter: $('#btnShutter'), result: $('#camResult'),
+    playHint: $('#camPlayHint'),
   });
 
   refs.select.innerHTML = OCR_SOURCES.map(s => `<option value="${s.id}">${s.label}</option>`).join('');
@@ -28,7 +30,23 @@ export function initCamera() {
   $('#btnCamToPhoto').addEventListener('click', () =>
     document.dispatchEvent(new CustomEvent('gototab', { detail: 'photo' })));
 
-  document.addEventListener('visibilitychange', () => { if (document.hidden) stopStream(); });
+  // iOS 省電模式會擋自動播放：提供「點一下啟動」的手勢後援
+  refs.playHint.addEventListener('click', async () => {
+    try {
+      await refs.video.play();
+      refs.playHint.hidden = true;
+    } catch {
+      toast('無法啟動相機預覽，請重新整理頁面再試', 'err');
+    }
+  });
+
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+      stopStream();
+    } else if ($('#tab-camera').classList.contains('active') && refs.result.hidden) {
+      startStream(); // 從其他 App 切回來時自動恢復取景
+    }
+  });
 }
 
 function syncDefaultSource() {
@@ -43,27 +61,39 @@ export function onHideCamera() {
 }
 
 async function startStream() {
-  if (stream) return;
+  if (stream || starting) return; // 防止重複啟動產生沒被釋放的孤兒串流
+  starting = true;
   refs.msg.hidden = true;
-  if (!navigator.mediaDevices?.getUserMedia) { showCamError(null); return; }
+  refs.playHint.hidden = true;
   try {
-    stream = await navigator.mediaDevices.getUserMedia({
-      video: { facingMode: { ideal: 'environment' }, width: { ideal: 1920 }, height: { ideal: 1080 } },
-      audio: false,
-    });
-    refs.video.srcObject = stream;
-    const track = stream.getVideoTracks()[0];
-    const caps = track.getCapabilities?.();
-    refs.torch.hidden = !(caps && caps.torch);
-    torchOn = false;
-    refs.torch.classList.remove('on');
-  } catch (err) {
-    stream = null;
-    showCamError(err);
+    if (!navigator.mediaDevices?.getUserMedia) { showCamError(null); return; }
+    try {
+      stream = await navigator.mediaDevices.getUserMedia({
+        video: { facingMode: { ideal: 'environment' }, width: { ideal: 1920 }, height: { ideal: 1080 } },
+        audio: false,
+      });
+      refs.video.srcObject = stream;
+      try {
+        await refs.video.play(); // iOS 需明確播放；省電模式下可能被拒
+      } catch {
+        refs.playHint.hidden = false;
+      }
+      const track = stream.getVideoTracks()[0];
+      const caps = track.getCapabilities?.();
+      refs.torch.hidden = !(caps && caps.torch);
+      torchOn = false;
+      refs.torch.classList.remove('on');
+    } catch (err) {
+      stopStream();
+      showCamError(err);
+    }
+  } finally {
+    starting = false;
   }
 }
 
 function stopStream() {
+  refs.playHint.hidden = true;
   if (!stream) return;
   stream.getTracks().forEach(t => t.stop());
   stream = null;

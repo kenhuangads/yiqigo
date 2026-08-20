@@ -36,6 +36,8 @@
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+/* hidden 屬性必須贏過任何 display 規則（否則 display:flex 的元素 hidden 後仍會顯示） */
+[hidden] { display: none !important; }
 html, body { height: 100%; }
 body {
   background: var(--bg);
@@ -267,6 +269,13 @@ select { padding: 8px 10px; min-height: 40px; }
   background: var(--bg); color: var(--ink);
   padding: 24px; text-align: center;
 }
+.cam-playhint {
+  position: absolute; inset: 0; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 10px;
+  background: rgba(0, 0, 0, .72); color: #fff;
+  font-weight: 600; font-size: 1.05rem;
+}
+.cam-playhint .i { width: 40px; height: 40px; }
 
 /* ---------- 影像翻譯結果（相機＆照片共用） ---------- */
 .vision-result { padding: 14px 14px 24px; }
