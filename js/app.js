@@ -66,6 +66,14 @@ function openSettings() {
         <button class="btn ghost" id="setRateTry" style="min-height:36px;padding:4px 12px">試聽</button>
       </div>
       <div class="set-row">
+        <div class="set-txt">朗讀聲音<small>依裝置內建語音而定；該語言若沒有所選性別的聲音，會自動用最接近的</small></div>
+        <div class="seg" id="setVoiceGender">
+          <button data-v="">自動</button>
+          <button data-v="f">女聲</button>
+          <button data-v="m">男聲</button>
+        </div>
+      </div>
+      <div class="set-row">
         <div class="set-txt">對話自動朗讀<small>翻譯完成後自動唸給對方聽</small></div>
         <label class="switch"><input type="checkbox" id="setAutoSpeak"><span class="knob"></span></label>
       </div>
@@ -116,6 +124,19 @@ function openSettings() {
     settings.rate = parseFloat(rate.value); saveSettings();
     if (ttsSupported) speak('你好，很高興認識你！', 'zh-TW', settings.rate);
     else toast('此瀏覽器不支援語音朗讀', 'err');
+  });
+
+  const segWrap = body.querySelector('#setVoiceGender');
+  const applySeg = () => segWrap.querySelectorAll('button').forEach(b =>
+    b.classList.toggle('on', (b.dataset.v || '') === (settings.voiceGender || '')));
+  applySeg();
+  segWrap.addEventListener('click', (e) => {
+    const b = e.target.closest('button');
+    if (!b) return;
+    settings.voiceGender = b.dataset.v || '';
+    saveSettings();
+    applySeg();
+    if (ttsSupported) speak('你好，這是朗讀聲音的試聽', 'zh-TW', settings.rate);
   });
 
   const bindSwitch = (id, key, onChange) => {

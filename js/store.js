@@ -17,6 +17,7 @@ function save(key, value) {
 
 export const settings = load(K.settings, {
   rate: 1,             // 語音速度
+  voiceGender: '',     // 朗讀聲音：'' 自動｜'f' 女聲｜'m' 男聲
   autoSpeak: true,     // 對話自動朗讀
   taiwanGuard: true,   // 台灣用語守護
   autoTranslate: true, // 輸入停頓自動翻譯
