@@ -89,6 +89,10 @@ function openSettings() {
           <button class="btn ghost" id="setAITest">測試</button>
         </div>
       </div>
+      <div class="set-row">
+        <div class="set-txt">親友共用連結<small>把金鑰打包成連結傳給親友，點開即自動啟用 AI 翻譯。連結內含你的金鑰，只分享給信任的人</small></div>
+        <button class="btn ghost" id="setAIShare" style="min-height:38px">產生連結</button>
+      </div>
       <div class="set-row" id="setInstallRow" hidden>
         <div class="set-txt">安裝到主畫面<small>像 App 一樣使用，支援離線句庫</small></div>
         <button class="btn primary" id="setInstall" style="min-height:38px">安裝</button>
@@ -135,6 +139,22 @@ function openSettings() {
     settings.geminiKey = keyInput.value.trim();
     saveSettings();
   });
+  body.querySelector('#setAIShare').addEventListener('click', async () => {
+    const aiKey = (settings.geminiKey || '').trim();
+    if (!aiKey) { toast('請先貼上並測試金鑰', 'err'); return; }
+    const encoded = btoa(aiKey).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+    const url = `${location.origin}${location.pathname}#ai=${encoded}`;
+    if (navigator.share) {
+      try {
+        await navigator.share({ title: '一起GO 翻譯神器', text: '點開連結即可直接使用 AI 翻譯 🤖', url });
+        return;
+      } catch { /* 使用者取消分享就改走複製 */ }
+    }
+    navigator.clipboard?.writeText(url)
+      .then(() => toast('共用連結已複製，貼給親友即可 ✓'))
+      .catch(() => toast('複製失敗', 'err'));
+  });
+
   body.querySelector('#setAITest').addEventListener('click', async (e) => {
     settings.geminiKey = keyInput.value.trim();
     saveSettings();
@@ -175,6 +195,23 @@ function initInstallPrompt() {
   });
 }
 
+// 親友共用連結：網址 #ai=<base64url 金鑰> → 自動存入本機並啟用 AI 引擎
+// 金鑰只存在 URL 片段（不會送到伺服器、不會進 GitHub），讀取後立即從網址列移除
+function importSharedKey() {
+  const m = location.hash.match(/[#&]ai=([A-Za-z0-9\-_]+)/);
+  if (!m) return;
+  try {
+    const key = atob(m[1].replace(/-/g, '+').replace(/_/g, '/')).trim();
+    if (key) {
+      settings.geminiKey = key;
+      settings.aiEngine = true;
+      saveSettings();
+      setTimeout(() => toast('🤖 AI 翻譯引擎已啟用（親友共用連結）'), 600);
+    }
+  } catch { /* 連結格式不對就略過 */ }
+  history.replaceState(null, '', location.pathname + location.search);
+}
+
 function initServiceWorker() {
   if (!('serviceWorker' in navigator)) return;
   if (!window.isSecureContext) return;
@@ -183,6 +220,7 @@ function initServiceWorker() {
 }
 
 // ---------- 啟動 ----------
+importSharedKey();
 initPairSelector();
 initTabs();
 initNetworkBanner();
