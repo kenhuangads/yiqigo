@@ -2,7 +2,8 @@
 // 縮放 → OCR → 整段合併翻譯 → 原圖上覆蓋譯文（AR 風格）＋ 原文/譯文對照清單
 import { OCR_SOURCES } from './config.js';
 import { recognize } from './ocr.js';
-import { translateText } from './translator.js';
+import { translateText, geminiVision } from './translator.js';
+import { taiwanize } from './taiwanize.js';
 import { settings } from './store.js';
 import { el, icon, toast, copyText, bigDisplay } from './ui.js';
 import { speak, stopSpeaking } from './speech.js';
@@ -13,10 +14,24 @@ export function sourceById(id) {
   return OCR_SOURCES.find(s => s.id === id) || OCR_SOURCES[0];
 }
 
+// 圖片解碼：明確套用 EXIF 方向（手機直拍照片若被當橫圖辨識會全滅），多層備援
+async function decodeImage(blob) {
+  try { return await createImageBitmap(blob, { imageOrientation: 'from-image' }); } catch {}
+  try { return await createImageBitmap(blob); } catch {}
+  // 最後手段：<img>（現代瀏覽器繪製時會自動套用 EXIF 方向）
+  return new Promise((resolve, reject) => {
+    const url = URL.createObjectURL(blob);
+    const img = new Image();
+    img.onload = () => { URL.revokeObjectURL(url); resolve(img); };
+    img.onerror = () => { URL.revokeObjectURL(url); reject(new Error('圖片解碼失敗（HEIC 請先轉成 JPG）')); };
+    img.src = url;
+  });
+}
+
 // 各種輸入（video、img、blob）統一轉為 canvas 並限制最大邊長
 export async function toCanvas(source, maxDim = MAX_DIM) {
   let bmp = source;
-  if (source instanceof Blob) bmp = await createImageBitmap(source);
+  if (source instanceof Blob) bmp = await decodeImage(source);
   const sw = bmp.videoWidth || bmp.naturalWidth || bmp.width;
   const sh = bmp.videoHeight || bmp.naturalHeight || bmp.height;
   const scale = Math.min(1, maxDim / Math.max(sw, sh));
@@ -25,6 +40,48 @@ export async function toCanvas(source, maxDim = MAX_DIM) {
   canvas.height = Math.round(sh * scale);
   canvas.getContext('2d').drawImage(bmp, 0, 0, canvas.width, canvas.height);
   return canvas;
+}
+
+// OCR 前處理：灰階＋2%/98% 對比拉伸；深色背景（招牌類）自動反轉成黑字白底
+// 回傳 { canvas, mean }，mean 為原圖平均亮度（可用來提示開手電筒）
+export function preprocessForOCR(canvas) {
+  const w = canvas.width, h = canvas.height, n = w * h;
+  const ctx = canvas.getContext('2d', { willReadFrequently: true });
+  const d = ctx.getImageData(0, 0, w, h).data;
+  const gray = new Uint8ClampedArray(n);
+  let sum = 0;
+  for (let i = 0; i < n; i++) {
+    const j = i * 4;
+    const g = (d[j] * 0.299 + d[j + 1] * 0.587 + d[j + 2] * 0.114) | 0;
+    gray[i] = g; sum += g;
+  }
+  const mean = sum / n;
+  const hist = new Uint32Array(256);
+  for (let i = 0; i < n; i++) hist[gray[i]]++;
+  // 0.4% 絕對裁切求亮度範圍；區間過窄（大面積留白＋少量文字的退化情況）就不拉伸
+  const clip = Math.max(32, n * 0.004);
+  let lo = 0, hi = 255, acc = 0;
+  for (let v = 0; v < 256; v++) { acc += hist[v]; if (acc >= clip) { lo = v; break; } }
+  acc = 0;
+  for (let v = 255; v >= 0; v--) { acc += hist[v]; if (acc >= clip) { hi = v; break; } }
+  if (hi - lo < 30) { lo = 0; hi = 255; } // 原圖對比已足夠或分布退化 → 原樣通過
+  const range = Math.max(1, hi - lo);
+  const invert = mean < 90;
+  const out = document.createElement('canvas');
+  out.width = w; out.height = h;
+  const octx = out.getContext('2d');
+  const oimg = octx.createImageData(w, h);
+  const od = oimg.data;
+  for (let i = 0; i < n; i++) {
+    let v = (gray[i] - lo) * 255 / range;
+    v = v < 0 ? 0 : v > 255 ? 255 : v;
+    if (invert) v = 255 - v;
+    const j = i * 4;
+    od[j] = od[j + 1] = od[j + 2] = v;
+    od[j + 3] = 255;
+  }
+  octx.putImageData(oimg, 0, 0);
+  return { canvas: out, mean };
 }
 
 const CJK_SPACE = (() => {
@@ -41,20 +98,67 @@ function isNoise(text) {
   try { return /^[^\p{L}\p{N}]+$/u.test(text); } catch { return false; }
 }
 
-// 清洗 OCR 線段：去雜訊、去 CJK 間空白、過濾低信心結果（快門與即時模式共用）
+function letterCount(text) {
+  try { return (text.match(/[\p{L}\p{N}]/gu) || []).length; }
+  catch { return text.length; }
+}
+
+// 清洗 OCR 線段：去雜訊、去 CJK 間空白、過濾低信心與符號比例過高的行（快門與即時模式共用）
 export function filterLines(rawLines) {
   return rawLines
     .map(l => ({ ...l, text: cleanLine(l.text) }))
-    .filter(l => !isNoise(l.text) && l.confidence >= 40);
+    .filter(l => {
+      if (isNoise(l.text) || l.confidence < 45) return false;
+      const letters = letterCount(l.text);
+      if (letters === 0) return false;
+      if (letters <= 1 && l.confidence < 70) return false; // 單一字元又低信心＝多半是雜訊
+      const dense = l.text.replace(/\s/g, '').length;
+      if (dense > 0 && letters / dense < 0.5) return false; // 過半是符號的行捨棄
+      return true;
+    });
 }
 
 // 主管線
+// 路徑一（啟用 AI 引擎時優先）：Gemini 視覺模型單次完成 OCR＋翻譯（含位置座標），品質最佳
+// 路徑二（備援）：影像前處理 → Tesseract OCR → 快速引擎翻譯
 export async function processImage(canvas, sourceId, onProgress) {
   const src = sourceById(sourceId);
   const targetLang = src.translateFrom === 'zh-TW' ? null : 'zh-TW'; // 中文原文時由使用者另選方向
+  const to = targetLang || 'en';
 
-  onProgress?.('準備辨識引擎…', 0);
-  const { lines: rawLines } = await recognize(canvas, src.ocr, src.psm, (phase, ratio) => {
+  if (settings.aiEngine && (settings.geminiKey || '').trim()) {
+    try {
+      onProgress?.('AI 視覺辨識翻譯中…', 0.3);
+      const { items } = await geminiVision(canvas, src.label, to);
+      onProgress?.('整理結果…', 0.85);
+      const pairs = [];
+      let guarded = false;
+      for (const it of items) {
+        let dst = it.dst;
+        if (to === 'zh-TW' && settings.taiwanGuard && dst) {
+          const g = await taiwanize(dst);
+          if (g !== dst) guarded = true;
+          dst = g;
+        }
+        pairs.push({ src: it.src, dst, bbox: it.bbox });
+      }
+      const withBox = pairs.some(p => p.bbox && p.dst);
+      return {
+        canvas: withBox ? drawOverlay(canvas, pairs) : canvas,
+        pairs,
+        fullSrc: pairs.map(p => p.src).filter(Boolean).join('\n'),
+        fullDst: pairs.map(p => p.dst).filter(Boolean).join('\n'),
+        provider: 'Gemini AI 視覺',
+        guarded, src, aligned: withBox, empty: false,
+      };
+    } catch {
+      onProgress?.('AI 視覺不可用，改用一般辨識…', 0.1);
+    }
+  }
+
+  onProgress?.('影像前處理…', 0.03);
+  const pre = preprocessForOCR(canvas);
+  const { lines: rawLines } = await recognize(pre.canvas, src.ocr, src.psm, (phase, ratio) => {
     if (phase === 'load') onProgress?.('下載／載入辨識模型…', ratio * 0.35);
     else onProgress?.('辨識文字中…', 0.35 + ratio * 0.4);
   });
@@ -67,8 +171,8 @@ export async function processImage(canvas, sourceId, onProgress) {
 
   onProgress?.('翻譯中…', 0.8);
   const joined = lines.map(l => l.text).join('\n');
-  const to = targetLang || 'en'; // 中文原文預設翻成英文（可於結果中複製原文）
-  const result = await translateText(joined, src.translateFrom, to);
+  // 走到這裡代表 AI 視覺不可用，翻譯直接用快速引擎，不再重試 AI
+  const result = await translateText(joined, src.translateFrom, to, { fast: true });
   let parts = result.text.split('\n').map(s => s.trim());
   const aligned = parts.length === lines.length;
 

@@ -38,16 +38,12 @@ function geminiGenConfig(model, bare) {
   return cfg;
 }
 
-async function geminiCall(model, key, sys, text, bare = false) {
+async function geminiPost(model, key, body) {
   const res = await fetchWithTimeout(`${AI.endpoint}${model}:generateContent`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', 'x-goog-api-key': key },
-    body: JSON.stringify({
-      system_instruction: { parts: [{ text: sys }] },
-      contents: [{ role: 'user', parts: [{ text }] }],
-      generationConfig: geminiGenConfig(model, bare),
-    }),
-  }, 20000);
+    body: JSON.stringify(body),
+  }, 30000);
   if (!res.ok) {
     let detail = `HTTP ${res.status}`;
     try { detail = (await res.json())?.error?.message?.slice(0, 160) || detail; } catch {}
@@ -59,6 +55,27 @@ async function geminiCall(model, key, sys, text, bare = false) {
   const out = (data.candidates?.[0]?.content?.parts || []).map(p => p.text || '').join('').trim();
   if (!out) throw new Error('AI 回應為空');
   return { text: out, model };
+}
+
+// 共用的 Gemini 執行流程：思考設定不相容時裸設定重試；模型被汰換時自動探索並記住
+async function geminiExec(key, makeBody) {
+  const call = async (m) => {
+    try { return await geminiPost(m, key, makeBody(m, false)); }
+    catch (err) {
+      if (err.status === 400 && !isModelGone(err)) return geminiPost(m, key, makeBody(m, true));
+      throw err;
+    }
+  };
+  let model = (settings.aiModel || '').trim() || AI.model;
+  try {
+    return await call(model);
+  } catch (err) {
+    if (!isModelGone(err)) throw err;
+    model = await discoverModel(key);
+    settings.aiModel = model;
+    saveSettings();
+    return call(model);
+  }
 }
 
 function isModelGone(err) {
@@ -101,29 +118,73 @@ async function geminiTranslate(text, from, to) {
 5. 原文若缺少標點，先在心中合理斷句再翻譯。
 6. 人名、地名、品牌採台灣慣用譯名，沒有慣用譯名就保留原文。`;
 
-  const attempt = async (model) => {
-    try {
-      return await geminiCall(model, key, sys, text);
-    } catch (err) {
-      // 思考設定不被此模型接受時，改用裸設定重試一次
-      if (err.status === 400 && !isModelGone(err)) return geminiCall(model, key, sys, text, true);
-      throw err;
-    }
-  };
-
-  let model = (settings.aiModel || '').trim() || AI.model;
-  let r;
-  try {
-    r = await attempt(model);
-  } catch (err) {
-    if (!isModelGone(err)) throw err;
-    // 模型已被 Google 汰換 → 自動探索可用模型並記住
-    model = await discoverModel(key);
-    settings.aiModel = model;
-    saveSettings();
-    r = await attempt(model);
-  }
+  const makeBody = (model, bare) => ({
+    system_instruction: { parts: [{ text: sys }] },
+    contents: [{ role: 'user', parts: [{ text }] }],
+    generationConfig: geminiGenConfig(model, bare),
+  });
+  const r = await geminiExec(key, makeBody);
   return { text: r.text, detected: from === 'auto' ? '' : from, provider: 'Gemini AI', model: r.model };
+}
+
+// ---------- Gemini 視覺翻譯：單次呼叫完成 OCR＋翻譯（照片／快門用，品質遠勝傳統 OCR） ----------
+export async function geminiVision(canvas, srcLabel, to) {
+  const key = (settings.geminiKey || '').trim();
+  if (!key) throw new Error('尚未設定 API 金鑰');
+
+  // 縮圖至 1280px、JPEG 上傳，兼顧細節與傳輸量
+  const scale = Math.min(1, 1280 / Math.max(canvas.width, canvas.height));
+  let c = canvas;
+  if (scale < 1) {
+    c = document.createElement('canvas');
+    c.width = Math.round(canvas.width * scale);
+    c.height = Math.round(canvas.height * scale);
+    c.getContext('2d').drawImage(canvas, 0, 0, c.width, c.height);
+  }
+  const b64 = c.toDataURL('image/jpeg', 0.85).split(',')[1];
+
+  const prompt = `這張圖片主要含有${srcLabel}文字（也可能夾雜其他語言）。找出圖中所有有意義的文字（菜單品項、招牌、標示、說明、價格等），逐項翻譯成${TARGET_DESC[to] ?? to}。
+輸出 JSON 陣列，每個元素格式：{"box_2d":[ymin,xmin,ymax,xmax],"src":"原文","dst":"譯文"}，box_2d 為該文字在圖中的位置（0-1000 正規化座標）。
+規則：
+1. 同一行或同一品項的文字合併為一個元素；忽略浮水印、雜訊與純裝飾圖樣。
+2. 價格與數字保留原樣；菜名與品項要翻得讓台灣人一看就懂。
+3. 只輸出 JSON 陣列，不要任何其他文字。`;
+
+  const makeBody = (model, bare) => ({
+    contents: [{ role: 'user', parts: [
+      { inline_data: { mime_type: 'image/jpeg', data: b64 } },
+      { text: prompt },
+    ] }],
+    generationConfig: { ...geminiGenConfig(model, bare), responseMimeType: 'application/json' },
+  });
+  const r = await geminiExec(key, makeBody);
+  const items = parseVisionItems(r.text, canvas.width, canvas.height);
+  if (!items.length) throw new Error('AI 沒有辨識到文字');
+  return { items, model: r.model };
+}
+
+export function parseVisionItems(text, w, h) {
+  const start = text.indexOf('['), end = text.lastIndexOf(']');
+  if (start < 0 || end <= start) return [];
+  let arr;
+  try { arr = JSON.parse(text.slice(start, end + 1)); } catch { return []; }
+  if (!Array.isArray(arr)) return [];
+  const items = [];
+  for (const it of arr) {
+    const src = typeof it?.src === 'string' ? it.src.trim() : '';
+    const dst = typeof it?.dst === 'string' ? it.dst.trim() : '';
+    if (!src && !dst) continue;
+    let bbox = null;
+    const b = it?.box_2d;
+    if (Array.isArray(b) && b.length === 4 && b.every(n => Number.isFinite(n))) {
+      const [ymin, xmin, ymax, xmax] = b;
+      if (ymax > ymin && xmax > xmin) {
+        bbox = { x0: xmin / 1000 * w, y0: ymin / 1000 * h, x1: xmax / 1000 * w, y1: ymax / 1000 * h };
+      }
+    }
+    items.push({ src, dst, bbox });
+  }
+  return items;
 }
 
 // 設定頁的「測試」按鈕用：直接打 AI 引擎驗證金鑰

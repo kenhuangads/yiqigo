@@ -1,5 +1,5 @@
 // 語言設定：預設四語（繁中／英／日／韓），未來擴充只需在此新增
-export const APP_VERSION = '1.3.0';
+export const APP_VERSION = '1.4.0';
 
 export const LANGS = {
   'zh-TW': {

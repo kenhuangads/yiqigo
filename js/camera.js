@@ -4,7 +4,7 @@
 import { OCR_SOURCES } from './config.js';
 import { settings, saveSettings, getForeign } from './store.js';
 import { $, toast, progressVeil } from './ui.js';
-import { toCanvas, processImage, renderVisionResult, sourceById, filterLines, drawTranslationChips } from './vision.js';
+import { toCanvas, processImage, renderVisionResult, sourceById, filterLines, drawTranslationChips, preprocessForOCR } from './vision.js';
 import { recognize } from './ocr.js';
 import { translateText } from './translator.js';
 
@@ -22,8 +22,25 @@ let loopTimer = null;
 let lastThumb = null;
 let lastJoined = '';
 let overlayHasContent = false;
+let emptyStreak = 0; // 連續空白結果次數（單次空白不清覆蓋，避免閃爍）
 let thumbCanvas = null;
 const refs = {};
+
+// 雙字元組 Dice 相似度：OCR 輕微抖動時沿用現有覆蓋，避免整片重畫閃爍
+function similarity(a, b) {
+  if (!a || !b) return a === b ? 1 : 0;
+  if (a === b) return 1;
+  const grams = (s) => {
+    const set = new Set();
+    for (let i = 0; i < s.length - 1; i++) set.add(s.slice(i, i + 2));
+    return set;
+  };
+  const A = grams(a), B = grams(b);
+  if (!A.size || !B.size) return 0;
+  let inter = 0;
+  for (const g of A) if (B.has(g)) inter++;
+  return (2 * inter) / (A.size + B.size);
+}
 
 export function initCamera() {
   Object.assign(refs, {
@@ -171,6 +188,7 @@ function clearOverlay() {
 function resetLive() {
   lastJoined = '';
   lastThumb = null;
+  emptyStreak = 0;
   clearOverlay();
   setStatus('');
 }
@@ -205,29 +223,35 @@ async function liveTick() {
   }
   const motion = measureMotion();
   if (motion > MOTION_LIMIT) {
-    clearOverlay();
+    // 大幅移動才清覆蓋；輕微晃動保留現有譯文，避免一直閃爍
+    if (motion > MOTION_LIMIT * 2.2) { clearOverlay(); lastJoined = ''; }
     setStatus('對準文字並保持穩定…');
-    lastJoined = '';
     return scheduleLoop(350);
   }
   liveBusy = true;
   try {
     const src = sourceById(refs.select.value);
     const frame = await toCanvas(refs.video, LIVE_MAX_DIM);
-    const { lines } = await recognize(frame, src.ocr, src.psm, (phase, ratio) => {
+    const pre = preprocessForOCR(frame);
+    if (pre.mean < 60 && !refs.torch.hidden && !torchOn) setStatus('光線不足，建議開手電筒 ⚡');
+    const { lines } = await recognize(pre.canvas, src.ocr, src.psm, (phase, ratio) => {
       if (phase === 'load') setStatus(`下載辨識模型… ${Math.round(ratio * 100)}%`);
     });
     const good = filterLines(lines);
     if (!good.length) {
-      clearOverlay();
-      setStatus('未偵測到文字');
-      lastJoined = '';
+      emptyStreak += 1;
+      if (!overlayHasContent || emptyStreak >= 2) { // 單次空白容錯，連續兩次才清
+        clearOverlay();
+        setStatus('未偵測到文字');
+        lastJoined = '';
+      }
       return;
     }
+    emptyStreak = 0;
     const joined = good.map(l => l.text).join('\n');
-    if (normalize(joined) === normalize(lastJoined) && overlayHasContent) {
+    if (overlayHasContent && similarity(normalize(joined), normalize(lastJoined)) >= 0.86) {
       setStatus('');
-      return; // 畫面內容沒變，沿用現有覆蓋
+      return; // 內容幾乎沒變（或只是 OCR 抖動），沿用現有覆蓋
     }
     const to = src.translateFrom === 'zh-TW' ? 'en' : 'zh-TW';
     const r = await translateText(joined, src.translateFrom, to, { fast: true });
