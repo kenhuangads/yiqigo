@@ -436,6 +436,18 @@ select { padding: 8px 10px; min-height: 40px; }
   transition: background .15s, color .15s; white-space: nowrap;
 }
 .seg button.on { background: var(--brand); color: #fff; font-weight: 600; }
+.voice-list { display: flex; flex-direction: column; gap: 4px; }
+.voice-row {
+  display: flex; align-items: center; gap: 10px;
+  background: var(--card2); border-radius: 10px; padding: 2px 4px 2px 12px;
+}
+.voice-lang { flex: none; width: 4.2em; font-size: .88rem; font-weight: 600; }
+.voice-name { flex: 1; min-width: 0; display: flex; flex-direction: column; padding: 5px 0; }
+.voice-main { font-size: .82rem; color: var(--muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.voice-note { font-size: .72rem; color: var(--accent); line-height: 1.35; }
+.voice-note:empty { display: none; }
+.voice-play { color: var(--brand-deep); }
+@media (prefers-color-scheme: dark) { .voice-play { color: var(--brand); } }
 .set-keyrow { display: flex; gap: 8px; }
 .set-keyrow input { flex: 1; padding: 9px 12px; min-width: 0; }
 .set-row:last-child { border-bottom: 0; }

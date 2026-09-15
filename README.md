@@ -45,7 +45,7 @@ python -m http.server 8642
 
 - **翻譯引擎（動態路由）**：預設 Google 免費端點為主、MyMemory 自動備援；可於設定啟用 **Gemini AI 引擎**（自備免費金鑰）——對話／輸入／照片走 LLM 翻譯（通順度大幅提升＋台灣用語提示詞），即時相機自動路由到快速引擎，AI 失敗時無縫退回一般引擎
 - **親友共用連結**：設定頁一鍵把金鑰打包成 `#ai=` 連結傳給親友，點開即自動啟用 AI 翻譯（金鑰藏在 URL 片段，不經伺服器、不進版本庫）
-- **語音辨識／朗讀**：Web Speech API（Chrome / Edge / Safari），支援 zh-TW、en-US、ja-JP、ko-KR
+- **語音辨識／朗讀**：Web Speech API（Chrome / Edge / Safari），支援 zh-TW、en-US、ja-JP、ko-KR。朗讀聲音依跨平台研究整理的名單自動挑選開朗親切的男／女聲，避開低沉、老人、機器人與搞怪語音；可用 `node tools/voice-sim.mjs` 模擬各平台的挑選結果
 - **OCR**：Tesseract.js（延遲載入；`chi_tra`、`jpn`、`jpn_vert`、`kor`、`eng` 模型，下載後由 Service Worker 快取）
 - **繁中在地化**：opencc-js（s2twp）＋ 自建詞典
 - **PWA**：可安裝到主畫面；App 殼層、OCR 模型、重複翻譯查詢皆可離線快取

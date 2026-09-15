@@ -1,0 +1,3057 @@
+{
+ "note": "各平台 speechSynthesis.getVoices() 清單（依真實排列順序，只保留中英日韓與搞怪語音）。多數為真實擷取（ulixee/browser-profile-data、Implex-ltd/fingerprint-client、crbug 40739658、本機 Chrome 153／Edge 152），標示 CONSTRUCTED／INFERRED 者為依文件推定。",
+ "platforms": [
+  {
+   "platform": "iPhone Safari, default install, Traditional Chinese UI (iOS 18 order; Eloquence present; zh-TW novelty display names are HYPOTHETICAL, voiceURIs real)",
+   "voices": [
+    {
+     "name": "Karen",
+     "lang": "en-AU",
+     "localService": true,
+     "voiceURI": "com.apple.voice.compact.en-AU.Karen"
+    },
+    {
+     "name": "Rocko",
+     "lang": "en-GB",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.en-GB.Rocko"
+    },
+    {
+     "name": "Shelley",
+     "lang": "en-GB",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.en-GB.Shelley"
+    },
+    {
+     "name": "Daniel",
+     "lang": "en-GB",
+     "localService": true,
+     "voiceURI": "com.apple.voice.compact.en-GB.Daniel"
+    },
+    {
+     "name": "Grandma",
+     "lang": "en-GB",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.en-GB.Grandma"
+    },
+    {
+     "name": "Grandpa",
+     "lang": "en-GB",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.en-GB.Grandpa"
+    },
+    {
+     "name": "Flo",
+     "lang": "en-GB",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.en-GB.Flo"
+    },
+    {
+     "name": "Eddy",
+     "lang": "en-GB",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.en-GB.Eddy"
+    },
+    {
+     "name": "Reed",
+     "lang": "en-GB",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.en-GB.Reed"
+    },
+    {
+     "name": "Sandy",
+     "lang": "en-GB",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.en-GB.Sandy"
+    },
+    {
+     "name": "Moira",
+     "lang": "en-IE",
+     "localService": true,
+     "voiceURI": "com.apple.voice.compact.en-IE.Moira"
+    },
+    {
+     "name": "Rishi",
+     "lang": "en-IN",
+     "localService": true,
+     "voiceURI": "com.apple.voice.compact.en-IN.Rishi"
+    },
+    {
+     "name": "Flo",
+     "lang": "en-US",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.en-US.Flo"
+    },
+    {
+     "name": "Bahh",
+     "lang": "en-US",
+     "localService": true,
+     "voiceURI": "com.apple.speech.synthesis.voice.Bahh"
+    },
+    {
+     "name": "Albert",
+     "lang": "en-US",
+     "localService": true,
+     "voiceURI": "com.apple.speech.synthesis.voice.Albert"
+    },
+    {
+     "name": "Fred",
+     "lang": "en-US",
+     "localService": true,
+     "voiceURI": "com.apple.speech.synthesis.voice.Fred"
+    },
+    {
+     "name": "小丑",
+     "lang": "en-US",
+     "localService": true,
+     "voiceURI": "com.apple.speech.synthesis.voice.Hysterical"
+    },
+    {
+     "name": "風琴",
+     "lang": "en-US",
+     "localService": true,
+     "voiceURI": "com.apple.speech.synthesis.voice.Organ"
+    },
+    {
+     "name": "大提琴",
+     "lang": "en-US",
+     "localService": true,
+     "voiceURI": "com.apple.speech.synthesis.voice.Cellos"
+    },
+    {
+     "name": "Zarvox",
+     "lang": "en-US",
+     "localService": true,
+     "voiceURI": "com.apple.speech.synthesis.voice.Zarvox"
+    },
+    {
+     "name": "Rocko",
+     "lang": "en-US",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.en-US.Rocko"
+    },
+    {
+     "name": "Shelley",
+     "lang": "en-US",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.en-US.Shelley"
+    },
+    {
+     "name": "Superstar",
+     "lang": "en-US",
+     "localService": true,
+     "voiceURI": "com.apple.speech.synthesis.voice.Princess"
+    },
+    {
+     "name": "Grandma",
+     "lang": "en-US",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.en-US.Grandma"
+    },
+    {
+     "name": "Eddy",
+     "lang": "en-US",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.en-US.Eddy"
+    },
+    {
+     "name": "鐘聲",
+     "lang": "en-US",
+     "localService": true,
+     "voiceURI": "com.apple.speech.synthesis.voice.Bells"
+    },
+    {
+     "name": "Grandpa",
+     "lang": "en-US",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.en-US.Grandpa"
+    },
+    {
+     "name": "Trinoids",
+     "lang": "en-US",
+     "localService": true,
+     "voiceURI": "com.apple.speech.synthesis.voice.Trinoids"
+    },
+    {
+     "name": "Kathy",
+     "lang": "en-US",
+     "localService": true,
+     "voiceURI": "com.apple.speech.synthesis.voice.Kathy"
+    },
+    {
+     "name": "Reed",
+     "lang": "en-US",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.en-US.Reed"
+    },
+    {
+     "name": "Boing",
+     "lang": "en-US",
+     "localService": true,
+     "voiceURI": "com.apple.speech.synthesis.voice.Boing"
+    },
+    {
+     "name": "耳語",
+     "lang": "en-US",
+     "localService": true,
+     "voiceURI": "com.apple.speech.synthesis.voice.Whisper"
+    },
+    {
+     "name": "好消息",
+     "lang": "en-US",
+     "localService": true,
+     "voiceURI": "com.apple.speech.synthesis.voice.GoodNews"
+    },
+    {
+     "name": "Wobble",
+     "lang": "en-US",
+     "localService": true,
+     "voiceURI": "com.apple.speech.synthesis.voice.Deranged"
+    },
+    {
+     "name": "壞消息",
+     "lang": "en-US",
+     "localService": true,
+     "voiceURI": "com.apple.speech.synthesis.voice.BadNews"
+    },
+    {
+     "name": "泡泡",
+     "lang": "en-US",
+     "localService": true,
+     "voiceURI": "com.apple.speech.synthesis.voice.Bubbles"
+    },
+    {
+     "name": "Samantha",
+     "lang": "en-US",
+     "localService": true,
+     "voiceURI": "com.apple.voice.compact.en-US.Samantha"
+    },
+    {
+     "name": "Sandy",
+     "lang": "en-US",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.en-US.Sandy"
+    },
+    {
+     "name": "Junior",
+     "lang": "en-US",
+     "localService": true,
+     "voiceURI": "com.apple.speech.synthesis.voice.Junior"
+    },
+    {
+     "name": "Ralph",
+     "lang": "en-US",
+     "localService": true,
+     "voiceURI": "com.apple.speech.synthesis.voice.Ralph"
+    },
+    {
+     "name": "Tessa",
+     "lang": "en-ZA",
+     "localService": true,
+     "voiceURI": "com.apple.voice.compact.en-ZA.Tessa"
+    },
+    {
+     "name": "Eddy",
+     "lang": "ja-JP",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.ja-JP.Eddy"
+    },
+    {
+     "name": "Reed",
+     "lang": "ja-JP",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.ja-JP.Reed"
+    },
+    {
+     "name": "Shelley",
+     "lang": "ja-JP",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.ja-JP.Shelley"
+    },
+    {
+     "name": "Kyoko",
+     "lang": "ja-JP",
+     "localService": true,
+     "voiceURI": "com.apple.voice.compact.ja-JP.Kyoko"
+    },
+    {
+     "name": "Grandma",
+     "lang": "ja-JP",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.ja-JP.Grandma"
+    },
+    {
+     "name": "Rocko",
+     "lang": "ja-JP",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.ja-JP.Rocko"
+    },
+    {
+     "name": "Grandpa",
+     "lang": "ja-JP",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.ja-JP.Grandpa"
+    },
+    {
+     "name": "Sandy",
+     "lang": "ja-JP",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.ja-JP.Sandy"
+    },
+    {
+     "name": "Flo",
+     "lang": "ja-JP",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.ja-JP.Flo"
+    },
+    {
+     "name": "Rocko",
+     "lang": "ko-KR",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.ko-KR.Rocko"
+    },
+    {
+     "name": "Grandma",
+     "lang": "ko-KR",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.ko-KR.Grandma"
+    },
+    {
+     "name": "Grandpa",
+     "lang": "ko-KR",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.ko-KR.Grandpa"
+    },
+    {
+     "name": "Eddy",
+     "lang": "ko-KR",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.ko-KR.Eddy"
+    },
+    {
+     "name": "Sandy",
+     "lang": "ko-KR",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.ko-KR.Sandy"
+    },
+    {
+     "name": "Yuna",
+     "lang": "ko-KR",
+     "localService": true,
+     "voiceURI": "com.apple.voice.compact.ko-KR.Yuna"
+    },
+    {
+     "name": "Reed",
+     "lang": "ko-KR",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.ko-KR.Reed"
+    },
+    {
+     "name": "Flo",
+     "lang": "ko-KR",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.ko-KR.Flo"
+    },
+    {
+     "name": "Shelley",
+     "lang": "ko-KR",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.ko-KR.Shelley"
+    },
+    {
+     "name": "Eddy",
+     "lang": "zh-CN",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.zh-CN.Eddy"
+    },
+    {
+     "name": "Shelley",
+     "lang": "zh-CN",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.zh-CN.Shelley"
+    },
+    {
+     "name": "Grandma",
+     "lang": "zh-CN",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.zh-CN.Grandma"
+    },
+    {
+     "name": "Reed",
+     "lang": "zh-CN",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.zh-CN.Reed"
+    },
+    {
+     "name": "Grandpa",
+     "lang": "zh-CN",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.zh-CN.Grandpa"
+    },
+    {
+     "name": "Rocko",
+     "lang": "zh-CN",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.zh-CN.Rocko"
+    },
+    {
+     "name": "Flo",
+     "lang": "zh-CN",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.zh-CN.Flo"
+    },
+    {
+     "name": "婷婷",
+     "lang": "zh-CN",
+     "localService": true,
+     "voiceURI": "com.apple.voice.compact.zh-CN.Tingting"
+    },
+    {
+     "name": "Sandy",
+     "lang": "zh-CN",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.zh-CN.Sandy"
+    },
+    {
+     "name": "善怡",
+     "lang": "zh-HK",
+     "localService": true,
+     "voiceURI": "com.apple.voice.compact.zh-HK.Sinji"
+    },
+    {
+     "name": "Shelley",
+     "lang": "zh-TW",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.zh-TW.Shelley"
+    },
+    {
+     "name": "Grandma",
+     "lang": "zh-TW",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.zh-TW.Grandma"
+    },
+    {
+     "name": "Grandpa",
+     "lang": "zh-TW",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.zh-TW.Grandpa"
+    },
+    {
+     "name": "Sandy",
+     "lang": "zh-TW",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.zh-TW.Sandy"
+    },
+    {
+     "name": "Flo",
+     "lang": "zh-TW",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.zh-TW.Flo"
+    },
+    {
+     "name": "Eddy",
+     "lang": "zh-TW",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.zh-TW.Eddy"
+    },
+    {
+     "name": "Reed",
+     "lang": "zh-TW",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.zh-TW.Reed"
+    },
+    {
+     "name": "美佳",
+     "lang": "zh-TW",
+     "localService": true,
+     "voiceURI": "com.apple.voice.compact.zh-TW.Meijia"
+    },
+    {
+     "name": "Rocko",
+     "lang": "zh-TW",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.zh-TW.Rocko"
+    },
+    {
+     "name": "Moira",
+     "lang": "en-IE",
+     "localService": true,
+     "voiceURI": "com.apple.voice.compact.en-IE.Moira"
+    },
+    {
+     "name": "Tessa",
+     "lang": "en-ZA",
+     "localService": true,
+     "voiceURI": "com.apple.voice.compact.en-ZA.Tessa"
+    },
+    {
+     "name": "Karen",
+     "lang": "en-AU",
+     "localService": true,
+     "voiceURI": "com.apple.voice.compact.en-AU.Karen"
+    },
+    {
+     "name": "Daniel",
+     "lang": "en-GB",
+     "localService": true,
+     "voiceURI": "com.apple.voice.compact.en-GB.Daniel"
+    },
+    {
+     "name": "Kyoko",
+     "lang": "ja-JP",
+     "localService": true,
+     "voiceURI": "com.apple.voice.compact.ja-JP.Kyoko"
+    },
+    {
+     "name": "婷婷",
+     "lang": "zh-CN",
+     "localService": true,
+     "voiceURI": "com.apple.voice.compact.zh-CN.Tingting"
+    },
+    {
+     "name": "Rishi",
+     "lang": "en-IN",
+     "localService": true,
+     "voiceURI": "com.apple.voice.compact.en-IN.Rishi"
+    },
+    {
+     "name": "美佳",
+     "lang": "zh-TW",
+     "localService": true,
+     "voiceURI": "com.apple.voice.compact.zh-TW.Meijia"
+    },
+    {
+     "name": "Yuna",
+     "lang": "ko-KR",
+     "localService": true,
+     "voiceURI": "com.apple.voice.compact.ko-KR.Yuna"
+    },
+    {
+     "name": "Samantha",
+     "lang": "en-US",
+     "localService": true,
+     "voiceURI": "com.apple.voice.compact.en-US.Samantha"
+    },
+    {
+     "name": "善怡",
+     "lang": "zh-HK",
+     "localService": true,
+     "voiceURI": "com.apple.voice.compact.zh-HK.Sinji"
+    }
+   ]
+  },
+  {
+   "platform": "iPhone Safari with downloaded Enhanced Meijia/Kyoko/Yuna (iOS 18.0 bug: compact voices of those languages vanish; Enhanced voices are never listed)",
+   "voices": [
+    {
+     "name": "Karen",
+     "lang": "en-AU",
+     "localService": true,
+     "voiceURI": "com.apple.voice.compact.en-AU.Karen"
+    },
+    {
+     "name": "Rocko",
+     "lang": "en-GB",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.en-GB.Rocko"
+    },
+    {
+     "name": "Shelley",
+     "lang": "en-GB",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.en-GB.Shelley"
+    },
+    {
+     "name": "Daniel",
+     "lang": "en-GB",
+     "localService": true,
+     "voiceURI": "com.apple.voice.compact.en-GB.Daniel"
+    },
+    {
+     "name": "Grandma",
+     "lang": "en-GB",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.en-GB.Grandma"
+    },
+    {
+     "name": "Grandpa",
+     "lang": "en-GB",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.en-GB.Grandpa"
+    },
+    {
+     "name": "Flo",
+     "lang": "en-GB",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.en-GB.Flo"
+    },
+    {
+     "name": "Eddy",
+     "lang": "en-GB",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.en-GB.Eddy"
+    },
+    {
+     "name": "Reed",
+     "lang": "en-GB",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.en-GB.Reed"
+    },
+    {
+     "name": "Sandy",
+     "lang": "en-GB",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.en-GB.Sandy"
+    },
+    {
+     "name": "Moira",
+     "lang": "en-IE",
+     "localService": true,
+     "voiceURI": "com.apple.voice.compact.en-IE.Moira"
+    },
+    {
+     "name": "Rishi",
+     "lang": "en-IN",
+     "localService": true,
+     "voiceURI": "com.apple.voice.compact.en-IN.Rishi"
+    },
+    {
+     "name": "Flo",
+     "lang": "en-US",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.en-US.Flo"
+    },
+    {
+     "name": "Bahh",
+     "lang": "en-US",
+     "localService": true,
+     "voiceURI": "com.apple.speech.synthesis.voice.Bahh"
+    },
+    {
+     "name": "Albert",
+     "lang": "en-US",
+     "localService": true,
+     "voiceURI": "com.apple.speech.synthesis.voice.Albert"
+    },
+    {
+     "name": "Fred",
+     "lang": "en-US",
+     "localService": true,
+     "voiceURI": "com.apple.speech.synthesis.voice.Fred"
+    },
+    {
+     "name": "小丑",
+     "lang": "en-US",
+     "localService": true,
+     "voiceURI": "com.apple.speech.synthesis.voice.Hysterical"
+    },
+    {
+     "name": "風琴",
+     "lang": "en-US",
+     "localService": true,
+     "voiceURI": "com.apple.speech.synthesis.voice.Organ"
+    },
+    {
+     "name": "大提琴",
+     "lang": "en-US",
+     "localService": true,
+     "voiceURI": "com.apple.speech.synthesis.voice.Cellos"
+    },
+    {
+     "name": "Zarvox",
+     "lang": "en-US",
+     "localService": true,
+     "voiceURI": "com.apple.speech.synthesis.voice.Zarvox"
+    },
+    {
+     "name": "Rocko",
+     "lang": "en-US",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.en-US.Rocko"
+    },
+    {
+     "name": "Shelley",
+     "lang": "en-US",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.en-US.Shelley"
+    },
+    {
+     "name": "Superstar",
+     "lang": "en-US",
+     "localService": true,
+     "voiceURI": "com.apple.speech.synthesis.voice.Princess"
+    },
+    {
+     "name": "Grandma",
+     "lang": "en-US",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.en-US.Grandma"
+    },
+    {
+     "name": "Eddy",
+     "lang": "en-US",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.en-US.Eddy"
+    },
+    {
+     "name": "鐘聲",
+     "lang": "en-US",
+     "localService": true,
+     "voiceURI": "com.apple.speech.synthesis.voice.Bells"
+    },
+    {
+     "name": "Grandpa",
+     "lang": "en-US",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.en-US.Grandpa"
+    },
+    {
+     "name": "Trinoids",
+     "lang": "en-US",
+     "localService": true,
+     "voiceURI": "com.apple.speech.synthesis.voice.Trinoids"
+    },
+    {
+     "name": "Kathy",
+     "lang": "en-US",
+     "localService": true,
+     "voiceURI": "com.apple.speech.synthesis.voice.Kathy"
+    },
+    {
+     "name": "Reed",
+     "lang": "en-US",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.en-US.Reed"
+    },
+    {
+     "name": "Boing",
+     "lang": "en-US",
+     "localService": true,
+     "voiceURI": "com.apple.speech.synthesis.voice.Boing"
+    },
+    {
+     "name": "耳語",
+     "lang": "en-US",
+     "localService": true,
+     "voiceURI": "com.apple.speech.synthesis.voice.Whisper"
+    },
+    {
+     "name": "好消息",
+     "lang": "en-US",
+     "localService": true,
+     "voiceURI": "com.apple.speech.synthesis.voice.GoodNews"
+    },
+    {
+     "name": "Wobble",
+     "lang": "en-US",
+     "localService": true,
+     "voiceURI": "com.apple.speech.synthesis.voice.Deranged"
+    },
+    {
+     "name": "壞消息",
+     "lang": "en-US",
+     "localService": true,
+     "voiceURI": "com.apple.speech.synthesis.voice.BadNews"
+    },
+    {
+     "name": "泡泡",
+     "lang": "en-US",
+     "localService": true,
+     "voiceURI": "com.apple.speech.synthesis.voice.Bubbles"
+    },
+    {
+     "name": "Samantha",
+     "lang": "en-US",
+     "localService": true,
+     "voiceURI": "com.apple.voice.compact.en-US.Samantha"
+    },
+    {
+     "name": "Sandy",
+     "lang": "en-US",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.en-US.Sandy"
+    },
+    {
+     "name": "Junior",
+     "lang": "en-US",
+     "localService": true,
+     "voiceURI": "com.apple.speech.synthesis.voice.Junior"
+    },
+    {
+     "name": "Ralph",
+     "lang": "en-US",
+     "localService": true,
+     "voiceURI": "com.apple.speech.synthesis.voice.Ralph"
+    },
+    {
+     "name": "Tessa",
+     "lang": "en-ZA",
+     "localService": true,
+     "voiceURI": "com.apple.voice.compact.en-ZA.Tessa"
+    },
+    {
+     "name": "Eddy",
+     "lang": "ja-JP",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.ja-JP.Eddy"
+    },
+    {
+     "name": "Reed",
+     "lang": "ja-JP",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.ja-JP.Reed"
+    },
+    {
+     "name": "Shelley",
+     "lang": "ja-JP",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.ja-JP.Shelley"
+    },
+    {
+     "name": "Grandma",
+     "lang": "ja-JP",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.ja-JP.Grandma"
+    },
+    {
+     "name": "Rocko",
+     "lang": "ja-JP",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.ja-JP.Rocko"
+    },
+    {
+     "name": "Grandpa",
+     "lang": "ja-JP",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.ja-JP.Grandpa"
+    },
+    {
+     "name": "Sandy",
+     "lang": "ja-JP",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.ja-JP.Sandy"
+    },
+    {
+     "name": "Flo",
+     "lang": "ja-JP",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.ja-JP.Flo"
+    },
+    {
+     "name": "Rocko",
+     "lang": "ko-KR",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.ko-KR.Rocko"
+    },
+    {
+     "name": "Grandma",
+     "lang": "ko-KR",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.ko-KR.Grandma"
+    },
+    {
+     "name": "Grandpa",
+     "lang": "ko-KR",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.ko-KR.Grandpa"
+    },
+    {
+     "name": "Eddy",
+     "lang": "ko-KR",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.ko-KR.Eddy"
+    },
+    {
+     "name": "Sandy",
+     "lang": "ko-KR",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.ko-KR.Sandy"
+    },
+    {
+     "name": "Reed",
+     "lang": "ko-KR",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.ko-KR.Reed"
+    },
+    {
+     "name": "Flo",
+     "lang": "ko-KR",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.ko-KR.Flo"
+    },
+    {
+     "name": "Shelley",
+     "lang": "ko-KR",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.ko-KR.Shelley"
+    },
+    {
+     "name": "Eddy",
+     "lang": "zh-CN",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.zh-CN.Eddy"
+    },
+    {
+     "name": "Shelley",
+     "lang": "zh-CN",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.zh-CN.Shelley"
+    },
+    {
+     "name": "Grandma",
+     "lang": "zh-CN",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.zh-CN.Grandma"
+    },
+    {
+     "name": "Reed",
+     "lang": "zh-CN",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.zh-CN.Reed"
+    },
+    {
+     "name": "Grandpa",
+     "lang": "zh-CN",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.zh-CN.Grandpa"
+    },
+    {
+     "name": "Rocko",
+     "lang": "zh-CN",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.zh-CN.Rocko"
+    },
+    {
+     "name": "Flo",
+     "lang": "zh-CN",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.zh-CN.Flo"
+    },
+    {
+     "name": "婷婷",
+     "lang": "zh-CN",
+     "localService": true,
+     "voiceURI": "com.apple.voice.compact.zh-CN.Tingting"
+    },
+    {
+     "name": "Sandy",
+     "lang": "zh-CN",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.zh-CN.Sandy"
+    },
+    {
+     "name": "善怡",
+     "lang": "zh-HK",
+     "localService": true,
+     "voiceURI": "com.apple.voice.compact.zh-HK.Sinji"
+    },
+    {
+     "name": "Shelley",
+     "lang": "zh-TW",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.zh-TW.Shelley"
+    },
+    {
+     "name": "Grandma",
+     "lang": "zh-TW",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.zh-TW.Grandma"
+    },
+    {
+     "name": "Grandpa",
+     "lang": "zh-TW",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.zh-TW.Grandpa"
+    },
+    {
+     "name": "Sandy",
+     "lang": "zh-TW",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.zh-TW.Sandy"
+    },
+    {
+     "name": "Flo",
+     "lang": "zh-TW",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.zh-TW.Flo"
+    },
+    {
+     "name": "Eddy",
+     "lang": "zh-TW",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.zh-TW.Eddy"
+    },
+    {
+     "name": "Reed",
+     "lang": "zh-TW",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.zh-TW.Reed"
+    },
+    {
+     "name": "Rocko",
+     "lang": "zh-TW",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.zh-TW.Rocko"
+    },
+    {
+     "name": "Moira",
+     "lang": "en-IE",
+     "localService": true,
+     "voiceURI": "com.apple.voice.compact.en-IE.Moira"
+    },
+    {
+     "name": "Tessa",
+     "lang": "en-ZA",
+     "localService": true,
+     "voiceURI": "com.apple.voice.compact.en-ZA.Tessa"
+    },
+    {
+     "name": "Karen",
+     "lang": "en-AU",
+     "localService": true,
+     "voiceURI": "com.apple.voice.compact.en-AU.Karen"
+    },
+    {
+     "name": "Daniel",
+     "lang": "en-GB",
+     "localService": true,
+     "voiceURI": "com.apple.voice.compact.en-GB.Daniel"
+    },
+    {
+     "name": "婷婷",
+     "lang": "zh-CN",
+     "localService": true,
+     "voiceURI": "com.apple.voice.compact.zh-CN.Tingting"
+    },
+    {
+     "name": "Rishi",
+     "lang": "en-IN",
+     "localService": true,
+     "voiceURI": "com.apple.voice.compact.en-IN.Rishi"
+    },
+    {
+     "name": "Samantha",
+     "lang": "en-US",
+     "localService": true,
+     "voiceURI": "com.apple.voice.compact.en-US.Samantha"
+    },
+    {
+     "name": "善怡",
+     "lang": "zh-HK",
+     "localService": true,
+     "voiceURI": "com.apple.voice.compact.zh-HK.Sinji"
+    }
+   ]
+  },
+  {
+   "platform": "iPhone Safari iOS 26.3 (real CriOS 146 capture with Chinese names applied; super-compact, no Eloquence)",
+   "voices": [
+    {
+     "name": "Samantha",
+     "lang": "en-US",
+     "localService": true,
+     "voiceURI": "com.apple.voice.super-compact.en-US.Samantha"
+    },
+    {
+     "name": "Albert",
+     "lang": "en-US",
+     "localService": true,
+     "voiceURI": "com.apple.speech.synthesis.voice.Albert"
+    },
+    {
+     "name": "Bad News",
+     "lang": "en-US",
+     "localService": true,
+     "voiceURI": "com.apple.speech.synthesis.voice.BadNews"
+    },
+    {
+     "name": "Bahh",
+     "lang": "en-US",
+     "localService": true,
+     "voiceURI": "com.apple.speech.synthesis.voice.Bahh"
+    },
+    {
+     "name": "Bells",
+     "lang": "en-US",
+     "localService": true,
+     "voiceURI": "com.apple.speech.synthesis.voice.Bells"
+    },
+    {
+     "name": "Boing",
+     "lang": "en-US",
+     "localService": true,
+     "voiceURI": "com.apple.speech.synthesis.voice.Boing"
+    },
+    {
+     "name": "Bubbles",
+     "lang": "en-US",
+     "localService": true,
+     "voiceURI": "com.apple.speech.synthesis.voice.Bubbles"
+    },
+    {
+     "name": "Cellos",
+     "lang": "en-US",
+     "localService": true,
+     "voiceURI": "com.apple.speech.synthesis.voice.Cellos"
+    },
+    {
+     "name": "Wobble",
+     "lang": "en-US",
+     "localService": true,
+     "voiceURI": "com.apple.speech.synthesis.voice.Deranged"
+    },
+    {
+     "name": "Fred",
+     "lang": "en-US",
+     "localService": true,
+     "voiceURI": "com.apple.speech.synthesis.voice.Fred"
+    },
+    {
+     "name": "Good News",
+     "lang": "en-US",
+     "localService": true,
+     "voiceURI": "com.apple.speech.synthesis.voice.GoodNews"
+    },
+    {
+     "name": "Jester",
+     "lang": "en-US",
+     "localService": true,
+     "voiceURI": "com.apple.speech.synthesis.voice.Hysterical"
+    },
+    {
+     "name": "Junior",
+     "lang": "en-US",
+     "localService": true,
+     "voiceURI": "com.apple.speech.synthesis.voice.Junior"
+    },
+    {
+     "name": "Kathy",
+     "lang": "en-US",
+     "localService": true,
+     "voiceURI": "com.apple.speech.synthesis.voice.Kathy"
+    },
+    {
+     "name": "Organ",
+     "lang": "en-US",
+     "localService": true,
+     "voiceURI": "com.apple.speech.synthesis.voice.Organ"
+    },
+    {
+     "name": "Superstar",
+     "lang": "en-US",
+     "localService": true,
+     "voiceURI": "com.apple.speech.synthesis.voice.Princess"
+    },
+    {
+     "name": "Ralph",
+     "lang": "en-US",
+     "localService": true,
+     "voiceURI": "com.apple.speech.synthesis.voice.Ralph"
+    },
+    {
+     "name": "Trinoids",
+     "lang": "en-US",
+     "localService": true,
+     "voiceURI": "com.apple.speech.synthesis.voice.Trinoids"
+    },
+    {
+     "name": "Whisper",
+     "lang": "en-US",
+     "localService": true,
+     "voiceURI": "com.apple.speech.synthesis.voice.Whisper"
+    },
+    {
+     "name": "Zarvox",
+     "lang": "en-US",
+     "localService": true,
+     "voiceURI": "com.apple.speech.synthesis.voice.Zarvox"
+    },
+    {
+     "name": "Daniel",
+     "lang": "en-GB",
+     "localService": true,
+     "voiceURI": "com.apple.voice.compact.en-GB.Daniel"
+    },
+    {
+     "name": "Karen",
+     "lang": "en-AU",
+     "localService": true,
+     "voiceURI": "com.apple.voice.super-compact.en-AU.Karen"
+    },
+    {
+     "name": "Moira",
+     "lang": "en-IE",
+     "localService": true,
+     "voiceURI": "com.apple.voice.super-compact.en-IE.Moira"
+    },
+    {
+     "name": "Rishi",
+     "lang": "en-IN",
+     "localService": true,
+     "voiceURI": "com.apple.voice.super-compact.en-IN.Rishi"
+    },
+    {
+     "name": "Tessa",
+     "lang": "en-ZA",
+     "localService": true,
+     "voiceURI": "com.apple.voice.super-compact.en-ZA.Tessa"
+    },
+    {
+     "name": "Kyoko",
+     "lang": "ja-JP",
+     "localService": true,
+     "voiceURI": "com.apple.voice.super-compact.ja-JP.Kyoko"
+    },
+    {
+     "name": "美佳",
+     "lang": "zh-TW",
+     "localService": true,
+     "voiceURI": "com.apple.voice.super-compact.zh-TW.Meijia"
+    },
+    {
+     "name": "善怡",
+     "lang": "yue-HK",
+     "localService": true,
+     "voiceURI": "com.apple.voice.super-compact.zh-HK.Sinji"
+    },
+    {
+     "name": "婷婷",
+     "lang": "zh-CN",
+     "localService": true,
+     "voiceURI": "com.apple.voice.super-compact.zh-CN.Tingting"
+    },
+    {
+     "name": "Yuna",
+     "lang": "ko-KR",
+     "localService": true,
+     "voiceURI": "com.apple.voice.super-compact.ko-KR.Yuna"
+    }
+   ]
+  },
+  {
+   "platform": "macOS 15 Safari 18.1 (real ulixee capture, English UI)",
+   "voices": [
+    {
+     "name": "Karen",
+     "lang": "en-AU",
+     "localService": true,
+     "voiceURI": "com.apple.voice.compact.en-AU.Karen"
+    },
+    {
+     "name": "Rocko",
+     "lang": "en-GB",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.en-GB.Rocko"
+    },
+    {
+     "name": "Shelley",
+     "lang": "en-GB",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.en-GB.Shelley"
+    },
+    {
+     "name": "Daniel",
+     "lang": "en-GB",
+     "localService": true,
+     "voiceURI": "com.apple.voice.compact.en-GB.Daniel"
+    },
+    {
+     "name": "Grandma",
+     "lang": "en-GB",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.en-GB.Grandma"
+    },
+    {
+     "name": "Grandpa",
+     "lang": "en-GB",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.en-GB.Grandpa"
+    },
+    {
+     "name": "Flo",
+     "lang": "en-GB",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.en-GB.Flo"
+    },
+    {
+     "name": "Eddy",
+     "lang": "en-GB",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.en-GB.Eddy"
+    },
+    {
+     "name": "Reed",
+     "lang": "en-GB",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.en-GB.Reed"
+    },
+    {
+     "name": "Sandy",
+     "lang": "en-GB",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.en-GB.Sandy"
+    },
+    {
+     "name": "Moira",
+     "lang": "en-IE",
+     "localService": true,
+     "voiceURI": "com.apple.voice.compact.en-IE.Moira"
+    },
+    {
+     "name": "Rishi",
+     "lang": "en-IN",
+     "localService": true,
+     "voiceURI": "com.apple.voice.compact.en-IN.Rishi"
+    },
+    {
+     "name": "Flo",
+     "lang": "en-US",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.en-US.Flo"
+    },
+    {
+     "name": "Bahh",
+     "lang": "en-US",
+     "localService": true,
+     "voiceURI": "com.apple.speech.synthesis.voice.Bahh"
+    },
+    {
+     "name": "Albert",
+     "lang": "en-US",
+     "localService": true,
+     "voiceURI": "com.apple.speech.synthesis.voice.Albert"
+    },
+    {
+     "name": "Fred",
+     "lang": "en-US",
+     "localService": true,
+     "voiceURI": "com.apple.speech.synthesis.voice.Fred"
+    },
+    {
+     "name": "Jester",
+     "lang": "en-US",
+     "localService": true,
+     "voiceURI": "com.apple.speech.synthesis.voice.Hysterical"
+    },
+    {
+     "name": "Organ",
+     "lang": "en-US",
+     "localService": true,
+     "voiceURI": "com.apple.speech.synthesis.voice.Organ"
+    },
+    {
+     "name": "Cellos",
+     "lang": "en-US",
+     "localService": true,
+     "voiceURI": "com.apple.speech.synthesis.voice.Cellos"
+    },
+    {
+     "name": "Zarvox",
+     "lang": "en-US",
+     "localService": true,
+     "voiceURI": "com.apple.speech.synthesis.voice.Zarvox"
+    },
+    {
+     "name": "Rocko",
+     "lang": "en-US",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.en-US.Rocko"
+    },
+    {
+     "name": "Shelley",
+     "lang": "en-US",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.en-US.Shelley"
+    },
+    {
+     "name": "Superstar",
+     "lang": "en-US",
+     "localService": true,
+     "voiceURI": "com.apple.speech.synthesis.voice.Princess"
+    },
+    {
+     "name": "Grandma",
+     "lang": "en-US",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.en-US.Grandma"
+    },
+    {
+     "name": "Eddy",
+     "lang": "en-US",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.en-US.Eddy"
+    },
+    {
+     "name": "Bells",
+     "lang": "en-US",
+     "localService": true,
+     "voiceURI": "com.apple.speech.synthesis.voice.Bells"
+    },
+    {
+     "name": "Grandpa",
+     "lang": "en-US",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.en-US.Grandpa"
+    },
+    {
+     "name": "Trinoids",
+     "lang": "en-US",
+     "localService": true,
+     "voiceURI": "com.apple.speech.synthesis.voice.Trinoids"
+    },
+    {
+     "name": "Kathy",
+     "lang": "en-US",
+     "localService": true,
+     "voiceURI": "com.apple.speech.synthesis.voice.Kathy"
+    },
+    {
+     "name": "Reed",
+     "lang": "en-US",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.en-US.Reed"
+    },
+    {
+     "name": "Boing",
+     "lang": "en-US",
+     "localService": true,
+     "voiceURI": "com.apple.speech.synthesis.voice.Boing"
+    },
+    {
+     "name": "Whisper",
+     "lang": "en-US",
+     "localService": true,
+     "voiceURI": "com.apple.speech.synthesis.voice.Whisper"
+    },
+    {
+     "name": "Good News",
+     "lang": "en-US",
+     "localService": true,
+     "voiceURI": "com.apple.speech.synthesis.voice.GoodNews"
+    },
+    {
+     "name": "Wobble",
+     "lang": "en-US",
+     "localService": true,
+     "voiceURI": "com.apple.speech.synthesis.voice.Deranged"
+    },
+    {
+     "name": "Bad News",
+     "lang": "en-US",
+     "localService": true,
+     "voiceURI": "com.apple.speech.synthesis.voice.BadNews"
+    },
+    {
+     "name": "Bubbles",
+     "lang": "en-US",
+     "localService": true,
+     "voiceURI": "com.apple.speech.synthesis.voice.Bubbles"
+    },
+    {
+     "name": "Samantha",
+     "lang": "en-US",
+     "localService": true,
+     "voiceURI": "com.apple.voice.compact.en-US.Samantha"
+    },
+    {
+     "name": "Sandy",
+     "lang": "en-US",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.en-US.Sandy"
+    },
+    {
+     "name": "Junior",
+     "lang": "en-US",
+     "localService": true,
+     "voiceURI": "com.apple.speech.synthesis.voice.Junior"
+    },
+    {
+     "name": "Ralph",
+     "lang": "en-US",
+     "localService": true,
+     "voiceURI": "com.apple.speech.synthesis.voice.Ralph"
+    },
+    {
+     "name": "Tessa",
+     "lang": "en-ZA",
+     "localService": true,
+     "voiceURI": "com.apple.voice.compact.en-ZA.Tessa"
+    },
+    {
+     "name": "Eddy",
+     "lang": "ja-JP",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.ja-JP.Eddy"
+    },
+    {
+     "name": "Reed",
+     "lang": "ja-JP",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.ja-JP.Reed"
+    },
+    {
+     "name": "Shelley",
+     "lang": "ja-JP",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.ja-JP.Shelley"
+    },
+    {
+     "name": "Kyoko",
+     "lang": "ja-JP",
+     "localService": true,
+     "voiceURI": "com.apple.voice.compact.ja-JP.Kyoko"
+    },
+    {
+     "name": "Grandma",
+     "lang": "ja-JP",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.ja-JP.Grandma"
+    },
+    {
+     "name": "Rocko",
+     "lang": "ja-JP",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.ja-JP.Rocko"
+    },
+    {
+     "name": "Grandpa",
+     "lang": "ja-JP",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.ja-JP.Grandpa"
+    },
+    {
+     "name": "Sandy",
+     "lang": "ja-JP",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.ja-JP.Sandy"
+    },
+    {
+     "name": "Flo",
+     "lang": "ja-JP",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.ja-JP.Flo"
+    },
+    {
+     "name": "Rocko",
+     "lang": "ko-KR",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.ko-KR.Rocko"
+    },
+    {
+     "name": "Grandma",
+     "lang": "ko-KR",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.ko-KR.Grandma"
+    },
+    {
+     "name": "Grandpa",
+     "lang": "ko-KR",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.ko-KR.Grandpa"
+    },
+    {
+     "name": "Eddy",
+     "lang": "ko-KR",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.ko-KR.Eddy"
+    },
+    {
+     "name": "Sandy",
+     "lang": "ko-KR",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.ko-KR.Sandy"
+    },
+    {
+     "name": "Yuna",
+     "lang": "ko-KR",
+     "localService": true,
+     "voiceURI": "com.apple.voice.compact.ko-KR.Yuna"
+    },
+    {
+     "name": "Reed",
+     "lang": "ko-KR",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.ko-KR.Reed"
+    },
+    {
+     "name": "Flo",
+     "lang": "ko-KR",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.ko-KR.Flo"
+    },
+    {
+     "name": "Shelley",
+     "lang": "ko-KR",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.ko-KR.Shelley"
+    },
+    {
+     "name": "Eddy",
+     "lang": "zh-CN",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.zh-CN.Eddy"
+    },
+    {
+     "name": "Shelley",
+     "lang": "zh-CN",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.zh-CN.Shelley"
+    },
+    {
+     "name": "Grandma",
+     "lang": "zh-CN",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.zh-CN.Grandma"
+    },
+    {
+     "name": "Reed",
+     "lang": "zh-CN",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.zh-CN.Reed"
+    },
+    {
+     "name": "Grandpa",
+     "lang": "zh-CN",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.zh-CN.Grandpa"
+    },
+    {
+     "name": "Rocko",
+     "lang": "zh-CN",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.zh-CN.Rocko"
+    },
+    {
+     "name": "Flo",
+     "lang": "zh-CN",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.zh-CN.Flo"
+    },
+    {
+     "name": "Tingting",
+     "lang": "zh-CN",
+     "localService": true,
+     "voiceURI": "com.apple.voice.compact.zh-CN.Tingting"
+    },
+    {
+     "name": "Sandy",
+     "lang": "zh-CN",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.zh-CN.Sandy"
+    },
+    {
+     "name": "Sinji",
+     "lang": "zh-HK",
+     "localService": true,
+     "voiceURI": "com.apple.voice.compact.zh-HK.Sinji"
+    },
+    {
+     "name": "Shelley",
+     "lang": "zh-TW",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.zh-TW.Shelley"
+    },
+    {
+     "name": "Grandma",
+     "lang": "zh-TW",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.zh-TW.Grandma"
+    },
+    {
+     "name": "Grandpa",
+     "lang": "zh-TW",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.zh-TW.Grandpa"
+    },
+    {
+     "name": "Sandy",
+     "lang": "zh-TW",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.zh-TW.Sandy"
+    },
+    {
+     "name": "Flo",
+     "lang": "zh-TW",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.zh-TW.Flo"
+    },
+    {
+     "name": "Eddy",
+     "lang": "zh-TW",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.zh-TW.Eddy"
+    },
+    {
+     "name": "Reed",
+     "lang": "zh-TW",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.zh-TW.Reed"
+    },
+    {
+     "name": "Meijia",
+     "lang": "zh-TW",
+     "localService": true,
+     "voiceURI": "com.apple.voice.compact.zh-TW.Meijia"
+    },
+    {
+     "name": "Rocko",
+     "lang": "zh-TW",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.zh-TW.Rocko"
+    },
+    {
+     "name": "Moira",
+     "lang": "en-IE",
+     "localService": true,
+     "voiceURI": "com.apple.voice.compact.en-IE.Moira"
+    },
+    {
+     "name": "Tessa",
+     "lang": "en-ZA",
+     "localService": true,
+     "voiceURI": "com.apple.voice.compact.en-ZA.Tessa"
+    },
+    {
+     "name": "Karen",
+     "lang": "en-AU",
+     "localService": true,
+     "voiceURI": "com.apple.voice.compact.en-AU.Karen"
+    },
+    {
+     "name": "Daniel",
+     "lang": "en-GB",
+     "localService": true,
+     "voiceURI": "com.apple.voice.compact.en-GB.Daniel"
+    },
+    {
+     "name": "Kyoko",
+     "lang": "ja-JP",
+     "localService": true,
+     "voiceURI": "com.apple.voice.compact.ja-JP.Kyoko"
+    },
+    {
+     "name": "Tingting",
+     "lang": "zh-CN",
+     "localService": true,
+     "voiceURI": "com.apple.voice.compact.zh-CN.Tingting"
+    },
+    {
+     "name": "Rishi",
+     "lang": "en-IN",
+     "localService": true,
+     "voiceURI": "com.apple.voice.compact.en-IN.Rishi"
+    },
+    {
+     "name": "Meijia",
+     "lang": "zh-TW",
+     "localService": true,
+     "voiceURI": "com.apple.voice.compact.zh-TW.Meijia"
+    },
+    {
+     "name": "Yuna",
+     "lang": "ko-KR",
+     "localService": true,
+     "voiceURI": "com.apple.voice.compact.ko-KR.Yuna"
+    },
+    {
+     "name": "Samantha",
+     "lang": "en-US",
+     "localService": true,
+     "voiceURI": "com.apple.voice.compact.en-US.Samantha"
+    },
+    {
+     "name": "Sinji",
+     "lang": "zh-HK",
+     "localService": true,
+     "voiceURI": "com.apple.voice.compact.zh-HK.Sinji"
+    }
+   ]
+  },
+  {
+   "platform": "macOS 26 Chrome 143 (real ulixee capture; voiceURI equals name; no Google network voices in this capture)",
+   "voices": [
+    {
+     "name": "Samantha",
+     "lang": "en-US",
+     "localService": true
+    },
+    {
+     "name": "Albert",
+     "lang": "en-US",
+     "localService": true
+    },
+    {
+     "name": "Bad News",
+     "lang": "en-US",
+     "localService": true
+    },
+    {
+     "name": "Bahh",
+     "lang": "en-US",
+     "localService": true
+    },
+    {
+     "name": "Bells",
+     "lang": "en-US",
+     "localService": true
+    },
+    {
+     "name": "Boing",
+     "lang": "en-US",
+     "localService": true
+    },
+    {
+     "name": "Bubbles",
+     "lang": "en-US",
+     "localService": true
+    },
+    {
+     "name": "Cellos",
+     "lang": "en-US",
+     "localService": true
+    },
+    {
+     "name": "Daniel",
+     "lang": "en-GB",
+     "localService": true
+    },
+    {
+     "name": "Eddy (English (United States))",
+     "lang": "en-US",
+     "localService": true
+    },
+    {
+     "name": "Eddy (English (United Kingdom))",
+     "lang": "en-GB",
+     "localService": true
+    },
+    {
+     "name": "Eddy (Chinese (China mainland))",
+     "lang": "zh-CN",
+     "localService": true
+    },
+    {
+     "name": "Eddy (Chinese (Taiwan))",
+     "lang": "zh-TW",
+     "localService": true
+    },
+    {
+     "name": "Eddy (Japanese (Japan))",
+     "lang": "ja-JP",
+     "localService": true
+    },
+    {
+     "name": "Eddy (Korean (South Korea))",
+     "lang": "ko-KR",
+     "localService": true
+    },
+    {
+     "name": "Flo (English (United States))",
+     "lang": "en-US",
+     "localService": true
+    },
+    {
+     "name": "Flo (English (United Kingdom))",
+     "lang": "en-GB",
+     "localService": true
+    },
+    {
+     "name": "Flo (Chinese (China mainland))",
+     "lang": "zh-CN",
+     "localService": true
+    },
+    {
+     "name": "Flo (Chinese (Taiwan))",
+     "lang": "zh-TW",
+     "localService": true
+    },
+    {
+     "name": "Flo (Japanese (Japan))",
+     "lang": "ja-JP",
+     "localService": true
+    },
+    {
+     "name": "Flo (Korean (South Korea))",
+     "lang": "ko-KR",
+     "localService": true
+    },
+    {
+     "name": "Fred",
+     "lang": "en-US",
+     "localService": true
+    },
+    {
+     "name": "Good News",
+     "lang": "en-US",
+     "localService": true
+    },
+    {
+     "name": "Grandma (English (United States))",
+     "lang": "en-US",
+     "localService": true
+    },
+    {
+     "name": "Grandma (English (United Kingdom))",
+     "lang": "en-GB",
+     "localService": true
+    },
+    {
+     "name": "Grandma (Chinese (China mainland))",
+     "lang": "zh-CN",
+     "localService": true
+    },
+    {
+     "name": "Grandma (Chinese (Taiwan))",
+     "lang": "zh-TW",
+     "localService": true
+    },
+    {
+     "name": "Grandma (Japanese (Japan))",
+     "lang": "ja-JP",
+     "localService": true
+    },
+    {
+     "name": "Grandma (Korean (South Korea))",
+     "lang": "ko-KR",
+     "localService": true
+    },
+    {
+     "name": "Grandpa (English (United States))",
+     "lang": "en-US",
+     "localService": true
+    },
+    {
+     "name": "Grandpa (English (United Kingdom))",
+     "lang": "en-GB",
+     "localService": true
+    },
+    {
+     "name": "Grandpa (Chinese (China mainland))",
+     "lang": "zh-CN",
+     "localService": true
+    },
+    {
+     "name": "Grandpa (Chinese (Taiwan))",
+     "lang": "zh-TW",
+     "localService": true
+    },
+    {
+     "name": "Grandpa (Japanese (Japan))",
+     "lang": "ja-JP",
+     "localService": true
+    },
+    {
+     "name": "Grandpa (Korean (South Korea))",
+     "lang": "ko-KR",
+     "localService": true
+    },
+    {
+     "name": "Jester",
+     "lang": "en-US",
+     "localService": true
+    },
+    {
+     "name": "Junior",
+     "lang": "en-US",
+     "localService": true
+    },
+    {
+     "name": "Karen",
+     "lang": "en-AU",
+     "localService": true
+    },
+    {
+     "name": "Kathy",
+     "lang": "en-US",
+     "localService": true
+    },
+    {
+     "name": "Kyoko",
+     "lang": "ja-JP",
+     "localService": true
+    },
+    {
+     "name": "Meijia",
+     "lang": "zh-TW",
+     "localService": true
+    },
+    {
+     "name": "Moira",
+     "lang": "en-IE",
+     "localService": true
+    },
+    {
+     "name": "Organ",
+     "lang": "en-US",
+     "localService": true
+    },
+    {
+     "name": "Ralph",
+     "lang": "en-US",
+     "localService": true
+    },
+    {
+     "name": "Reed (English (United States))",
+     "lang": "en-US",
+     "localService": true
+    },
+    {
+     "name": "Reed (English (United Kingdom))",
+     "lang": "en-GB",
+     "localService": true
+    },
+    {
+     "name": "Reed (Chinese (China mainland))",
+     "lang": "zh-CN",
+     "localService": true
+    },
+    {
+     "name": "Reed (Chinese (Taiwan))",
+     "lang": "zh-TW",
+     "localService": true
+    },
+    {
+     "name": "Reed (Japanese (Japan))",
+     "lang": "ja-JP",
+     "localService": true
+    },
+    {
+     "name": "Reed (Korean (South Korea))",
+     "lang": "ko-KR",
+     "localService": true
+    },
+    {
+     "name": "Rishi",
+     "lang": "en-IN",
+     "localService": true
+    },
+    {
+     "name": "Rocko (English (United States))",
+     "lang": "en-US",
+     "localService": true
+    },
+    {
+     "name": "Rocko (English (United Kingdom))",
+     "lang": "en-GB",
+     "localService": true
+    },
+    {
+     "name": "Rocko (Chinese (China mainland))",
+     "lang": "zh-CN",
+     "localService": true
+    },
+    {
+     "name": "Rocko (Chinese (Taiwan))",
+     "lang": "zh-TW",
+     "localService": true
+    },
+    {
+     "name": "Rocko (Japanese (Japan))",
+     "lang": "ja-JP",
+     "localService": true
+    },
+    {
+     "name": "Rocko (Korean (South Korea))",
+     "lang": "ko-KR",
+     "localService": true
+    },
+    {
+     "name": "Sandy (English (United States))",
+     "lang": "en-US",
+     "localService": true
+    },
+    {
+     "name": "Sandy (English (United Kingdom))",
+     "lang": "en-GB",
+     "localService": true
+    },
+    {
+     "name": "Sandy (Chinese (China mainland))",
+     "lang": "zh-CN",
+     "localService": true
+    },
+    {
+     "name": "Sandy (Chinese (Taiwan))",
+     "lang": "zh-TW",
+     "localService": true
+    },
+    {
+     "name": "Sandy (Japanese (Japan))",
+     "lang": "ja-JP",
+     "localService": true
+    },
+    {
+     "name": "Sandy (Korean (South Korea))",
+     "lang": "ko-KR",
+     "localService": true
+    },
+    {
+     "name": "Shelley (English (United States))",
+     "lang": "en-US",
+     "localService": true
+    },
+    {
+     "name": "Shelley (English (United Kingdom))",
+     "lang": "en-GB",
+     "localService": true
+    },
+    {
+     "name": "Shelley (Chinese (China mainland))",
+     "lang": "zh-CN",
+     "localService": true
+    },
+    {
+     "name": "Shelley (Chinese (Taiwan))",
+     "lang": "zh-TW",
+     "localService": true
+    },
+    {
+     "name": "Shelley (Japanese (Japan))",
+     "lang": "ja-JP",
+     "localService": true
+    },
+    {
+     "name": "Shelley (Korean (South Korea))",
+     "lang": "ko-KR",
+     "localService": true
+    },
+    {
+     "name": "Sinji",
+     "lang": "yue-HK",
+     "localService": true
+    },
+    {
+     "name": "Superstar",
+     "lang": "en-US",
+     "localService": true
+    },
+    {
+     "name": "Tessa",
+     "lang": "en-ZA",
+     "localService": true
+    },
+    {
+     "name": "Tingting",
+     "lang": "zh-CN",
+     "localService": true
+    },
+    {
+     "name": "Trinoids",
+     "lang": "en-US",
+     "localService": true
+    },
+    {
+     "name": "Whisper",
+     "lang": "en-US",
+     "localService": true
+    },
+    {
+     "name": "Wobble",
+     "lang": "en-US",
+     "localService": true
+    },
+    {
+     "name": "Yuna",
+     "lang": "ko-KR",
+     "localService": true
+    },
+    {
+     "name": "Zarvox",
+     "lang": "en-US",
+     "localService": true
+    }
+   ]
+  },
+  {
+   "platform": "Windows 11 zh-TW Chrome 153 (real dump; no extra speech packs)",
+   "voices": [
+    {
+     "name": "Microsoft Hanhan - Chinese (Traditional, Taiwan)",
+     "lang": "zh-TW",
+     "localService": true
+    },
+    {
+     "name": "Microsoft Yating - Chinese (Traditional, Taiwan)",
+     "lang": "zh-TW",
+     "localService": true
+    },
+    {
+     "name": "Microsoft Zhiwei - Chinese (Traditional, Taiwan)",
+     "lang": "zh-TW",
+     "localService": true
+    },
+    {
+     "name": "Google US English",
+     "lang": "en-US",
+     "localService": false
+    },
+    {
+     "name": "Google UK English Female",
+     "lang": "en-GB",
+     "localService": false
+    },
+    {
+     "name": "Google UK English Male",
+     "lang": "en-GB",
+     "localService": false
+    },
+    {
+     "name": "Google 日本語",
+     "lang": "ja-JP",
+     "localService": false
+    },
+    {
+     "name": "Google 한국의",
+     "lang": "ko-KR",
+     "localService": false
+    },
+    {
+     "name": "Google 普通话（中国大陆）",
+     "lang": "zh-CN",
+     "localService": false
+    },
+    {
+     "name": "Google 粤語（香港）",
+     "lang": "zh-HK",
+     "localService": false
+    },
+    {
+     "name": "Google 國語（臺灣）",
+     "lang": "zh-TW",
+     "localService": false
+    }
+   ]
+  },
+  {
+   "platform": "Windows 11 zh-TW Chrome with en-US/ja-JP/ko-KR speech packs (CONSTRUCTED order: names from Appendix A/Readium)",
+   "voices": [
+    {
+     "name": "Microsoft Hanhan - Chinese (Traditional, Taiwan)",
+     "lang": "zh-TW",
+     "localService": true
+    },
+    {
+     "name": "Microsoft Yating - Chinese (Traditional, Taiwan)",
+     "lang": "zh-TW",
+     "localService": true
+    },
+    {
+     "name": "Microsoft Zhiwei - Chinese (Traditional, Taiwan)",
+     "lang": "zh-TW",
+     "localService": true
+    },
+    {
+     "name": "Microsoft David - English (United States)",
+     "lang": "en-US",
+     "localService": true
+    },
+    {
+     "name": "Microsoft Mark - English (United States)",
+     "lang": "en-US",
+     "localService": true
+    },
+    {
+     "name": "Microsoft Zira - English (United States)",
+     "lang": "en-US",
+     "localService": true
+    },
+    {
+     "name": "Microsoft Haruka - Japanese (Japan)",
+     "lang": "ja-JP",
+     "localService": true
+    },
+    {
+     "name": "Microsoft Ayumi - Japanese (Japan)",
+     "lang": "ja-JP",
+     "localService": true
+    },
+    {
+     "name": "Microsoft Ichiro - Japanese (Japan)",
+     "lang": "ja-JP",
+     "localService": true
+    },
+    {
+     "name": "Microsoft Heami - Korean (Korea)",
+     "lang": "ko-KR",
+     "localService": true
+    },
+    {
+     "name": "Google US English",
+     "lang": "en-US",
+     "localService": false
+    },
+    {
+     "name": "Google UK English Female",
+     "lang": "en-GB",
+     "localService": false
+    },
+    {
+     "name": "Google UK English Male",
+     "lang": "en-GB",
+     "localService": false
+    },
+    {
+     "name": "Google 日本語",
+     "lang": "ja-JP",
+     "localService": false
+    },
+    {
+     "name": "Google 한국의",
+     "lang": "ko-KR",
+     "localService": false
+    },
+    {
+     "name": "Google 普通话（中国大陆）",
+     "lang": "zh-CN",
+     "localService": false
+    },
+    {
+     "name": "Google 粤語（香港）",
+     "lang": "zh-HK",
+     "localService": false
+    },
+    {
+     "name": "Google 國語（臺灣）",
+     "lang": "zh-TW",
+     "localService": false
+    }
+   ]
+  },
+  {
+   "platform": "Windows 11 zh-TW Edge 152, fresh profile before any online utterance (real dump)",
+   "voices": [
+    {
+     "name": "Microsoft Hanhan - Chinese (Traditional, Taiwan)",
+     "lang": "zh-TW",
+     "localService": true
+    },
+    {
+     "name": "Microsoft Yating - Chinese (Traditional, Taiwan)",
+     "lang": "zh-TW",
+     "localService": true
+    },
+    {
+     "name": "Microsoft Zhiwei - Chinese (Traditional, Taiwan)",
+     "lang": "zh-TW",
+     "localService": true
+    },
+    {
+     "name": "Microsoft Aria Online (Natural) - English (United States)",
+     "lang": "en-US",
+     "localService": false
+    },
+    {
+     "name": "Microsoft Guy Online (Natural) - English (United States)",
+     "lang": "en-US",
+     "localService": false
+    },
+    {
+     "name": "Microsoft Xiaoxiao Online (Natural) - Chinese (Mainland)",
+     "lang": "zh-CN",
+     "localService": false
+    },
+    {
+     "name": "Microsoft Yunyang Online (Natural) - Chinese (Mainland)",
+     "lang": "zh-CN",
+     "localService": false
+    },
+    {
+     "name": "Microsoft HanHan Online - Chinese (Taiwan)",
+     "lang": "zh-TW",
+     "localService": false
+    },
+    {
+     "name": "Microsoft Tracy Online - Chinese (Hong Kong)",
+     "lang": "zh-HK",
+     "localService": false
+    },
+    {
+     "name": "Microsoft Nanami Online (Natural) - Japanese (Japan)",
+     "lang": "ja-JP",
+     "localService": false
+    },
+    {
+     "name": "Microsoft Libby Online (Natural) - English (United Kingdom)",
+     "lang": "en-GB",
+     "localService": false
+    },
+    {
+     "name": "Microsoft Priya Online - English (India)",
+     "lang": "en-IN",
+     "localService": false
+    },
+    {
+     "name": "Microsoft Heather Online - English (Canada)",
+     "lang": "en-CA",
+     "localService": false
+    },
+    {
+     "name": "Microsoft Hayley Online - English (Australia)",
+     "lang": "en-AU",
+     "localService": false
+    },
+    {
+     "name": "Microsoft SunHi Online (Natural) - Korean (Korea)",
+     "lang": "ko-KR",
+     "localService": false
+    }
+   ]
+  },
+  {
+   "platform": "Windows 11 zh-TW Edge 152 after one online utterance (real dump, 325 voices filtered to zh/en/ja/ko)",
+   "voices": [
+    {
+     "name": "Microsoft Hanhan - Chinese (Traditional, Taiwan)",
+     "lang": "zh-TW",
+     "localService": true
+    },
+    {
+     "name": "Microsoft Yating - Chinese (Traditional, Taiwan)",
+     "lang": "zh-TW",
+     "localService": true
+    },
+    {
+     "name": "Microsoft Zhiwei - Chinese (Traditional, Taiwan)",
+     "lang": "zh-TW",
+     "localService": true
+    },
+    {
+     "name": "Microsoft HiuGaai Online (Natural) - Chinese (Cantonese Traditional)",
+     "lang": "zh-HK",
+     "localService": false
+    },
+    {
+     "name": "Microsoft HiuMaan Online (Natural) - Chinese (Hong Kong SAR)",
+     "lang": "zh-HK",
+     "localService": false
+    },
+    {
+     "name": "Microsoft WanLung Online (Natural) - Chinese (Hong Kong SAR)",
+     "lang": "zh-HK",
+     "localService": false
+    },
+    {
+     "name": "Microsoft Xiaoxiao Online (Natural) - Chinese (Mainland)",
+     "lang": "zh-CN",
+     "localService": false
+    },
+    {
+     "name": "Microsoft Xiaoyi Online (Natural) - Chinese (Mainland)",
+     "lang": "zh-CN",
+     "localService": false
+    },
+    {
+     "name": "Microsoft Yunjian Online (Natural) - Chinese (Mainland)",
+     "lang": "zh-CN",
+     "localService": false
+    },
+    {
+     "name": "Microsoft Yunxi Online (Natural) - Chinese (Mainland)",
+     "lang": "zh-CN",
+     "localService": false
+    },
+    {
+     "name": "Microsoft Yunxia Online (Natural) - Chinese (Mainland)",
+     "lang": "zh-CN",
+     "localService": false
+    },
+    {
+     "name": "Microsoft Yunyang Online (Natural) - Chinese (Mainland)",
+     "lang": "zh-CN",
+     "localService": false
+    },
+    {
+     "name": "Microsoft Xiaobei Online (Natural) - Chinese (Northeastern Mandarin)",
+     "lang": "zh-CN-liaoning",
+     "localService": false
+    },
+    {
+     "name": "Microsoft HsiaoChen Online (Natural) - Chinese (Taiwan)",
+     "lang": "zh-TW",
+     "localService": false
+    },
+    {
+     "name": "Microsoft YunJhe Online (Natural) - Chinese (Taiwan)",
+     "lang": "zh-TW",
+     "localService": false
+    },
+    {
+     "name": "Microsoft HsiaoYu Online (Natural) - Chinese (Taiwanese Mandarin)",
+     "lang": "zh-TW",
+     "localService": false
+    },
+    {
+     "name": "Microsoft Xiaoni Online (Natural) - Chinese (Zhongyuan Mandarin Shaanxi)",
+     "lang": "zh-CN-shaanxi",
+     "localService": false
+    },
+    {
+     "name": "Microsoft WilliamMultilingual Online (Natural) - English (Australia)",
+     "lang": "en-AU",
+     "localService": false
+    },
+    {
+     "name": "Microsoft Natasha Online (Natural) - English (Australia)",
+     "lang": "en-AU",
+     "localService": false
+    },
+    {
+     "name": "Microsoft Clara Online (Natural) - English (Canada)",
+     "lang": "en-CA",
+     "localService": false
+    },
+    {
+     "name": "Microsoft Liam Online (Natural) - English (Canada)",
+     "lang": "en-CA",
+     "localService": false
+    },
+    {
+     "name": "Microsoft Yan Online (Natural) - English (Hong Kong SAR)",
+     "lang": "en-HK",
+     "localService": false
+    },
+    {
+     "name": "Microsoft Sam Online (Natural) - English (Hongkong)",
+     "lang": "en-HK",
+     "localService": false
+    },
+    {
+     "name": "Microsoft Neerja Online (Natural) - English (India) (Preview)",
+     "lang": "en-IN",
+     "localService": false
+    },
+    {
+     "name": "Microsoft Neerja Online (Natural) - English (India)",
+     "lang": "en-IN",
+     "localService": false
+    },
+    {
+     "name": "Microsoft Prabhat Online (Natural) - English (India)",
+     "lang": "en-IN",
+     "localService": false
+    },
+    {
+     "name": "Microsoft Connor Online (Natural) - English (Ireland)",
+     "lang": "en-IE",
+     "localService": false
+    },
+    {
+     "name": "Microsoft Emily Online (Natural) - English (Ireland)",
+     "lang": "en-IE",
+     "localService": false
+    },
+    {
+     "name": "Microsoft Asilia Online (Natural) - English (Kenya)",
+     "lang": "en-KE",
+     "localService": false
+    },
+    {
+     "name": "Microsoft Chilemba Online (Natural) - English (Kenya)",
+     "lang": "en-KE",
+     "localService": false
+    },
+    {
+     "name": "Microsoft Mitchell Online (Natural) - English (New Zealand)",
+     "lang": "en-NZ",
+     "localService": false
+    },
+    {
+     "name": "Microsoft Molly Online (Natural) - English (New Zealand)",
+     "lang": "en-NZ",
+     "localService": false
+    },
+    {
+     "name": "Microsoft Abeo Online (Natural) - English (Nigeria)",
+     "lang": "en-NG",
+     "localService": false
+    },
+    {
+     "name": "Microsoft Ezinne Online (Natural) - English (Nigeria)",
+     "lang": "en-NG",
+     "localService": false
+    },
+    {
+     "name": "Microsoft James Online (Natural) - English (Philippines)",
+     "lang": "en-PH",
+     "localService": false
+    },
+    {
+     "name": "Microsoft Rosa Online (Natural) - English (Philippines)",
+     "lang": "en-PH",
+     "localService": false
+    },
+    {
+     "name": "Microsoft Ava Online (Natural) - English (United States)",
+     "lang": "en-US",
+     "localService": false
+    },
+    {
+     "name": "Microsoft Andrew Online (Natural) - English (United States)",
+     "lang": "en-US",
+     "localService": false
+    },
+    {
+     "name": "Microsoft Emma Online (Natural) - English (United States)",
+     "lang": "en-US",
+     "localService": false
+    },
+    {
+     "name": "Microsoft Brian Online (Natural) - English (United States)",
+     "lang": "en-US",
+     "localService": false
+    },
+    {
+     "name": "Microsoft Luna Online (Natural) - English (Singapore)",
+     "lang": "en-SG",
+     "localService": false
+    },
+    {
+     "name": "Microsoft Wayne Online (Natural) - English (Singapore)",
+     "lang": "en-SG",
+     "localService": false
+    },
+    {
+     "name": "Microsoft Leah Online (Natural) - English (South Africa)",
+     "lang": "en-ZA",
+     "localService": false
+    },
+    {
+     "name": "Microsoft Luke Online (Natural) - English (South Africa)",
+     "lang": "en-ZA",
+     "localService": false
+    },
+    {
+     "name": "Microsoft Elimu Online (Natural) - English (Tanzania)",
+     "lang": "en-TZ",
+     "localService": false
+    },
+    {
+     "name": "Microsoft Imani Online (Natural) - English (Tanzania)",
+     "lang": "en-TZ",
+     "localService": false
+    },
+    {
+     "name": "Microsoft Libby Online (Natural) - English (United Kingdom)",
+     "lang": "en-GB",
+     "localService": false
+    },
+    {
+     "name": "Microsoft Maisie Online (Natural) - English (United Kingdom)",
+     "lang": "en-GB",
+     "localService": false
+    },
+    {
+     "name": "Microsoft Ryan Online (Natural) - English (United Kingdom)",
+     "lang": "en-GB",
+     "localService": false
+    },
+    {
+     "name": "Microsoft Sonia Online (Natural) - English (United Kingdom)",
+     "lang": "en-GB",
+     "localService": false
+    },
+    {
+     "name": "Microsoft Thomas Online (Natural) - English (United Kingdom)",
+     "lang": "en-GB",
+     "localService": false
+    },
+    {
+     "name": "Microsoft Ana Online (Natural) - English (United States)",
+     "lang": "en-US",
+     "localService": false
+    },
+    {
+     "name": "Microsoft AndrewMultilingual Online (Natural) - English (United States)",
+     "lang": "en-US",
+     "localService": false
+    },
+    {
+     "name": "Microsoft Aria Online (Natural) - English (United States)",
+     "lang": "en-US",
+     "localService": false
+    },
+    {
+     "name": "Microsoft AvaMultilingual Online (Natural) - English (United States)",
+     "lang": "en-US",
+     "localService": false
+    },
+    {
+     "name": "Microsoft BrianMultilingual Online (Natural) - English (United States)",
+     "lang": "en-US",
+     "localService": false
+    },
+    {
+     "name": "Microsoft Christopher Online (Natural) - English (United States)",
+     "lang": "en-US",
+     "localService": false
+    },
+    {
+     "name": "Microsoft EmmaMultilingual Online (Natural) - English (United States)",
+     "lang": "en-US",
+     "localService": false
+    },
+    {
+     "name": "Microsoft Eric Online (Natural) - English (United States)",
+     "lang": "en-US",
+     "localService": false
+    },
+    {
+     "name": "Microsoft Guy Online (Natural) - English (United States)",
+     "lang": "en-US",
+     "localService": false
+    },
+    {
+     "name": "Microsoft Jenny Online (Natural) - English (United States)",
+     "lang": "en-US",
+     "localService": false
+    },
+    {
+     "name": "Microsoft Michelle Online (Natural) - English (United States)",
+     "lang": "en-US",
+     "localService": false
+    },
+    {
+     "name": "Microsoft Roger Online (Natural) - English (United States)",
+     "lang": "en-US",
+     "localService": false
+    },
+    {
+     "name": "Microsoft Steffan Online (Natural) - English (United States)",
+     "lang": "en-US",
+     "localService": false
+    },
+    {
+     "name": "Microsoft Keita Online (Natural) - Japanese (Japan)",
+     "lang": "ja-JP",
+     "localService": false
+    },
+    {
+     "name": "Microsoft Nanami Online (Natural) - Japanese (Japan)",
+     "lang": "ja-JP",
+     "localService": false
+    },
+    {
+     "name": "Microsoft HyunsuMultilingual Online (Natural) - Korean (Korea)",
+     "lang": "ko-KR",
+     "localService": false
+    },
+    {
+     "name": "Microsoft InJoon Online (Natural) - Korean (Korea)",
+     "lang": "ko-KR",
+     "localService": false
+    },
+    {
+     "name": "Microsoft SunHi Online (Natural) - Korean (Korea)",
+     "lang": "ko-KR",
+     "localService": false
+    }
+   ]
+  },
+  {
+   "platform": "Android Chrome + Google TTS, zh-TW UI (names inferred from CLDR zh-Hant and TtsPlatformImpl; locale order from real dump; lang uses Locale.toString underscores)",
+   "voices": [
+    {
+     "name": "英文 澳洲",
+     "lang": "en_AU",
+     "localService": true
+    },
+    {
+     "name": "英文 英國",
+     "lang": "en_GB",
+     "localService": true
+    },
+    {
+     "name": "英文 印度",
+     "lang": "en_IN",
+     "localService": true
+    },
+    {
+     "name": "英文 奈及利亞",
+     "lang": "en_NG",
+     "localService": true
+    },
+    {
+     "name": "英文 美國",
+     "lang": "en_US",
+     "localService": true
+    },
+    {
+     "name": "日文 日本",
+     "lang": "ja_JP",
+     "localService": true
+    },
+    {
+     "name": "爪哇文 印尼",
+     "lang": "jv_ID",
+     "localService": true
+    },
+    {
+     "name": "韓文 南韓",
+     "lang": "ko_KR",
+     "localService": true
+    },
+    {
+     "name": "粵語 中國香港特別行政區",
+     "lang": "yue_HK_#Hant",
+     "localService": true
+    },
+    {
+     "name": "中文 中國",
+     "lang": "zh_CN_#Hans",
+     "localService": true
+    },
+    {
+     "name": "中文 中國香港特別行政區",
+     "lang": "zh_HK_#Hans",
+     "localService": true
+    },
+    {
+     "name": "中文 中國香港特別行政區",
+     "lang": "zh_HK_#Hant",
+     "localService": true
+    },
+    {
+     "name": "中文 台灣",
+     "lang": "zh_TW_#Hant",
+     "localService": true
+    }
+   ]
+  },
+  {
+   "platform": "Android Chrome + Google TTS, English UI (real dump, crbug 40739658)",
+   "voices": [
+    {
+     "name": "English Australia",
+     "lang": "en_AU",
+     "localService": true
+    },
+    {
+     "name": "English United Kingdom",
+     "lang": "en_GB",
+     "localService": true
+    },
+    {
+     "name": "English India",
+     "lang": "en_IN",
+     "localService": true
+    },
+    {
+     "name": "English Nigeria",
+     "lang": "en_NG",
+     "localService": true
+    },
+    {
+     "name": "English United States",
+     "lang": "en_US",
+     "localService": true
+    },
+    {
+     "name": "Japanese Japan",
+     "lang": "ja_JP",
+     "localService": true
+    },
+    {
+     "name": "Javanese Indonesia",
+     "lang": "jv_ID",
+     "localService": true
+    },
+    {
+     "name": "Korean South Korea",
+     "lang": "ko_KR",
+     "localService": true
+    },
+    {
+     "name": "Cantonese Hong Kong",
+     "lang": "yue_HK_#Hant",
+     "localService": true
+    },
+    {
+     "name": "Chinese China",
+     "lang": "zh_CN_#Hans",
+     "localService": true
+    },
+    {
+     "name": "Chinese Hong Kong",
+     "lang": "zh_HK_#Hans",
+     "localService": true
+    },
+    {
+     "name": "Chinese Hong Kong",
+     "lang": "zh_HK_#Hant",
+     "localService": true
+    },
+    {
+     "name": "Chinese Taiwan",
+     "lang": "zh_TW_#Hant",
+     "localService": true
+    }
+   ]
+  },
+  {
+   "platform": "Samsung Internet + Samsung TTS, zh-TW UI (INFERRED: same Chromium locale path; assumes Samsung TTS reports no zh-TW country-level locale, which Chrome's isLanguageAvailable()>0 filter then drops)",
+   "voices": [
+    {
+     "name": "英文 英國",
+     "lang": "en_GB",
+     "localService": true
+    },
+    {
+     "name": "英文 印度",
+     "lang": "en_IN",
+     "localService": true
+    },
+    {
+     "name": "英文 美國",
+     "lang": "en_US",
+     "localService": true
+    },
+    {
+     "name": "日文 日本",
+     "lang": "ja_JP",
+     "localService": true
+    },
+    {
+     "name": "韓文 南韓",
+     "lang": "ko_KR",
+     "localService": true
+    },
+    {
+     "name": "中文 中國",
+     "lang": "zh_CN_#Hans",
+     "localService": true
+    }
+   ]
+  },
+  {
+   "platform": "iPhone Safari iOS 18（內建語音消失，只剩 Eloquence／MacinTalk）",
+   "voices": [
+    {
+     "name": "Flo",
+     "lang": "en-US",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.en-US.Flo"
+    },
+    {
+     "name": "Fred",
+     "lang": "en-US",
+     "localService": true,
+     "voiceURI": "com.apple.speech.synthesis.voice.Fred"
+    },
+    {
+     "name": "Rocko",
+     "lang": "en-US",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.en-US.Rocko"
+    },
+    {
+     "name": "Grandpa",
+     "lang": "en-US",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.en-US.Grandpa"
+    },
+    {
+     "name": "Eddy",
+     "lang": "en-US",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.en-US.Eddy"
+    },
+    {
+     "name": "壞消息",
+     "lang": "en-US",
+     "localService": true,
+     "voiceURI": "com.apple.speech.synthesis.voice.BadNews"
+    },
+    {
+     "name": "Ralph",
+     "lang": "en-US",
+     "localService": true,
+     "voiceURI": "com.apple.speech.synthesis.voice.Ralph"
+    },
+    {
+     "name": "Rocko",
+     "lang": "ja-JP",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.ja-JP.Rocko"
+    },
+    {
+     "name": "Grandpa",
+     "lang": "ja-JP",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.ja-JP.Grandpa"
+    },
+    {
+     "name": "Eddy",
+     "lang": "ja-JP",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.ja-JP.Eddy"
+    },
+    {
+     "name": "Shelley",
+     "lang": "ja-JP",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.ja-JP.Shelley"
+    },
+    {
+     "name": "Rocko",
+     "lang": "ko-KR",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.ko-KR.Rocko"
+    },
+    {
+     "name": "Grandma",
+     "lang": "ko-KR",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.ko-KR.Grandma"
+    },
+    {
+     "name": "Reed",
+     "lang": "ko-KR",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.ko-KR.Reed"
+    },
+    {
+     "name": "Flo",
+     "lang": "ko-KR",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.ko-KR.Flo"
+    },
+    {
+     "name": "婷婷",
+     "lang": "zh-CN",
+     "localService": true,
+     "voiceURI": "com.apple.voice.compact.zh-CN.Tingting"
+    },
+    {
+     "name": "善怡",
+     "lang": "zh-HK",
+     "localService": true,
+     "voiceURI": "com.apple.voice.compact.zh-HK.Sinji"
+    },
+    {
+     "name": "Rocko",
+     "lang": "zh-TW",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.zh-TW.Rocko"
+    },
+    {
+     "name": "Grandpa",
+     "lang": "zh-TW",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.zh-TW.Grandpa"
+    },
+    {
+     "name": "Eddy",
+     "lang": "zh-TW",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.zh-TW.Eddy"
+    },
+    {
+     "name": "Shelley",
+     "lang": "zh-TW",
+     "localService": true,
+     "voiceURI": "com.apple.eloquence.zh-TW.Shelley"
+    }
+   ]
+  }
+ ]
+}

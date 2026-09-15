@@ -1,9 +1,9 @@
 // 一起GO 翻譯神器 — 主程式
 import { LANGS, FOREIGN_LANGS, APP_VERSION, AI } from './config.js';
 import { settings, saveSettings, getForeign, setForeign, clearTextHistory } from './store.js';
-import { $, $$, el, toast, openSheet } from './ui.js';
+import { $, $$, el, icon, toast, openSheet } from './ui.js';
 import { testAIEngine } from './translator.js';
-import { speak, sttSupported, ttsSupported } from './speech.js';
+import { speak, voiceInfo, VOICE_SAMPLES, sttSupported, ttsSupported, isAppleMobile, isAndroid } from './speech.js';
 import { initTalk } from './conversation.js';
 import { initCamera, onShowCamera, onHideCamera } from './camera.js';
 import { initText } from './text.js';
@@ -43,10 +43,22 @@ function initNetworkBanner() {
   update();
 }
 
+// LINE／Facebook／Instagram 的內建瀏覽器常常無法朗讀、辨識語音或開相機（Android 版尤其嚴重）
+function inAppBrowserName() {
+  const ua = navigator.userAgent || '';
+  if (/\bLine\//i.test(ua)) return 'LINE';
+  if (/FBAN|FBAV|FB_IAB/.test(ua)) return 'Facebook';
+  if (/Instagram/i.test(ua)) return 'Instagram';
+  return '';
+}
+
 function initSupportBanner() {
   const banner = $('#supportBanner');
   const problems = [];
-  if (!window.isSecureContext) problems.push('目前非 HTTPS 安全連線，語音與相機功能無法使用');
+  const inApp = inAppBrowserName();
+  if (inApp) problems.push(`你正在 ${inApp} 的內建瀏覽器中，語音與相機可能無法使用。請點右上角選單，改用 Safari 或 Chrome 開啟`);
+  else if (!window.isSecureContext) problems.push('目前非 HTTPS 安全連線，語音與相機功能無法使用');
+  else if (!ttsSupported) problems.push('此瀏覽器無法朗讀，建議改用 Safari、Chrome 或 Edge 開啟');
   else if (!sttSupported) problems.push('此瀏覽器不支援語音辨識（「對話」功能受限），建議使用 Chrome、Edge 或 Safari');
   if (problems.length) {
     banner.textContent = `⚠️ ${problems.join('；')}`;
@@ -66,12 +78,16 @@ function openSettings() {
         <button class="btn ghost" id="setRateTry" style="min-height:36px;padding:4px 12px">試聽</button>
       </div>
       <div class="set-row">
-        <div class="set-txt">朗讀聲音<small>依裝置內建語音而定；該語言若沒有所選性別的聲音，會自動用最接近的</small></div>
+        <div class="set-txt">朗讀聲音<small>自動挑選開朗親切的聲音，避開低沉、老人、機器人音；該語言沒有所選性別時，改用最親切的聲音</small></div>
         <div class="seg" id="setVoiceGender">
           <button data-v="">自動</button>
           <button data-v="f">女聲</button>
           <button data-v="m">男聲</button>
         </div>
+      </div>
+      <div class="set-row set-col">
+        <div class="set-txt">各語言目前的聲音<small id="setVoiceHint">點 ▶ 試聽</small></div>
+        <div class="voice-list" id="setVoiceList"></div>
       </div>
       <div class="set-row">
         <div class="set-txt">對話自動朗讀<small>翻譯完成後自動唸給對方聽</small></div>
@@ -126,6 +142,50 @@ function openSettings() {
     else toast('此瀏覽器不支援語音朗讀', 'err');
   });
 
+  body.querySelector('#setVoiceHint').textContent = isAppleMobile
+    ? '點 ▶ 試聽。iPhone 沒聲音時，請確認機身側邊的靜音開關沒有打開'
+    : isAndroid
+      ? '點 ▶ 試聽。Android 的男女聲與音色由手機「設定 → 文字轉語音」決定；日文、韓文需先在那裡下載語音資料'
+      : '點 ▶ 試聽';
+  const voiceList = body.querySelector('#setVoiceList');
+  const renderVoiceList = () => {
+    voiceList.innerHTML = '';
+    if (!ttsSupported) {
+      voiceList.appendChild(el(`<div class="muted small">此瀏覽器不支援語音朗讀</div>`));
+      return;
+    }
+    for (const lang of Object.keys(LANGS)) {
+      const info = voiceInfo(lang);
+      const row = el(`
+        <div class="voice-row">
+          <span class="voice-lang">${LANGS[lang].flag} ${LANGS[lang].shortName}</span>
+          <span class="voice-name"><span class="voice-main"></span><small class="voice-note"></small></span>
+          <button class="iconbtn voice-play" aria-label="試聽${LANGS[lang].shortName}">${icon('speaker')}</button>
+        </div>`);
+      const wantedLabel = settings.voiceGender === 'm' ? '男聲' : '女聲';
+      row.querySelector('.voice-main').textContent = info
+        ? `${info.label}${info.genderLabel ? `・${info.genderLabel}` : ''}${info.natural ? '・自然語音' : ''}`
+        : '裝置沒有這個語言的語音';
+      row.querySelector('.voice-note').textContent = !info ? ''
+        : info.phoneDecides ? '聲音由手機「文字轉語音」設定決定'
+        : info.genderFallback ? `這台裝置沒有親切的${wantedLabel}，改用${info.genderLabel}`
+        : '';
+      row.querySelector('.voice-play').addEventListener('click', () =>
+        speak(VOICE_SAMPLES[lang], lang, settings.rate));
+      voiceList.appendChild(row);
+    }
+  };
+  renderVoiceList();
+  // 語音清單常在開啟設定後才載入完成（尤其 iOS／Edge），載入後重畫；面板關閉後自動解除監聽
+  const onVoicesChanged = () => {
+    if (!voiceList.isConnected) {
+      speechSynthesis.removeEventListener?.('voiceschanged', onVoicesChanged);
+      return;
+    }
+    renderVoiceList();
+  };
+  if (ttsSupported) speechSynthesis.addEventListener?.('voiceschanged', onVoicesChanged);
+
   const segWrap = body.querySelector('#setVoiceGender');
   const applySeg = () => segWrap.querySelectorAll('button').forEach(b =>
     b.classList.toggle('on', (b.dataset.v || '') === (settings.voiceGender || '')));
@@ -136,7 +196,8 @@ function openSettings() {
     settings.voiceGender = b.dataset.v || '';
     saveSettings();
     applySeg();
-    if (ttsSupported) speak('你好，這是朗讀聲音的試聽', 'zh-TW', settings.rate);
+    renderVoiceList();
+    if (ttsSupported) speak(VOICE_SAMPLES['zh-TW'], 'zh-TW', settings.rate);
   });
 
   const bindSwitch = (id, key, onChange) => {
@@ -164,7 +225,8 @@ function openSettings() {
     const aiKey = (settings.geminiKey || '').trim();
     if (!aiKey) { toast('請先貼上並測試金鑰', 'err'); return; }
     const encoded = btoa(aiKey).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
-    const url = `${location.origin}${location.pathname}#ai=${encoded}`;
+    // openExternalBrowser=1：LINE 會直接用 Safari／Chrome 開啟，避開無法朗讀的內建瀏覽器
+    const url = `${location.origin}${location.pathname}?openExternalBrowser=1#ai=${encoded}`;
     if (navigator.share) {
       try {
         await navigator.share({ title: '一起GO 翻譯神器', text: '點開連結即可直接使用 AI 翻譯 🤖', url });
@@ -219,18 +281,26 @@ function initInstallPrompt() {
 // 親友共用連結：網址 #ai=<base64url 金鑰> → 自動存入本機並啟用 AI 引擎
 // 金鑰只存在 URL 片段（不會送到伺服器、不會進 GitHub），讀取後立即從網址列移除
 function importSharedKey() {
+  const params = new URLSearchParams(location.search);
+  const hadExternalFlag = params.has('openExternalBrowser');
+  params.delete('openExternalBrowser');
   const m = location.hash.match(/[#&]ai=([A-Za-z0-9\-_]+)/);
-  if (!m) return;
-  try {
-    const key = atob(m[1].replace(/-/g, '+').replace(/_/g, '/')).trim();
-    if (key) {
-      settings.geminiKey = key;
-      settings.aiEngine = true;
-      saveSettings();
-      setTimeout(() => toast('🤖 AI 翻譯引擎已啟用（親友共用連結）'), 600);
-    }
-  } catch { /* 連結格式不對就略過 */ }
-  history.replaceState(null, '', location.pathname + location.search);
+  if (m) {
+    try {
+      const key = atob(m[1].replace(/-/g, '+').replace(/_/g, '/')).trim();
+      if (key) {
+        settings.geminiKey = key;
+        settings.aiEngine = true;
+        saveSettings();
+        setTimeout(() => toast('🤖 AI 翻譯引擎已啟用（親友共用連結）'), 600);
+      }
+    } catch { /* 連結格式不對就略過 */ }
+  }
+  // 在 LINE 等內建瀏覽器裡保留原網址：使用者改用 Safari／Chrome 開啟時金鑰才會一起帶過去
+  if ((m || hadExternalFlag) && !inAppBrowserName()) {
+    const qs = params.toString();
+    history.replaceState(null, '', location.pathname + (qs ? `?${qs}` : ''));
+  }
 }
 
 function initServiceWorker() {

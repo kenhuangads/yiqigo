@@ -1,5 +1,5 @@
 // Service Worker：離線殼層＋CDN 模型快取＋翻譯結果快取
-const VERSION = 'yiqigo-v1.4.0';
+const VERSION = 'yiqigo-v1.5.0';
 const SHELL_CACHE = `${VERSION}-shell`;
 const CDN_CACHE = `${VERSION}-cdn`;
 const API_CACHE = `${VERSION}-api`;
@@ -89,8 +89,10 @@ async function networkFirst(request, cacheName) {
     if (res.ok) cache.put(request, res.clone());
     return res;
   } catch (err) {
-    const cached = await cache.match(request);
-    if (cached) return cached; // 離線時重複的翻譯查詢仍可命中快取
+    // 離線時重複的翻譯查詢仍可命中快取；頁面導覽忽略查詢參數（分享連結帶 ?openExternalBrowser=1）
+    const cached = await cache.match(request)
+      || (request.mode === 'navigate' ? await cache.match(request, { ignoreSearch: true }) : undefined);
+    if (cached) return cached;
     throw err;
   }
 }
